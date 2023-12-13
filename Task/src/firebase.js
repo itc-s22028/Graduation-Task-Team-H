@@ -3,8 +3,6 @@ import {getAuth} from "firebase/auth"
 import { GoogleAuthProvider } from "firebase/auth"
 
 const firebaseConfig = {
-  // apiKey: "AIzaSyBrZhbq99CC6voUUx-7kV2HTn23nyyTk3c",
-  // apiKey: process.env.apiKey,
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "graduation-task-17777.firebaseapp.com",
   projectId: "graduation-task-17777",

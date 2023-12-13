@@ -23,6 +23,13 @@ const Search = () => {
     }
   };
 
+  const handleKeyDown = (event) => {
+    // Enter キーが押されたら検索を実行
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   // Spotify APIにアクセストークンを取得する関数Client_ID
   const getAccessToken = async () => {
     // ここにSpotify Developer Dashboardで作成したアプリのクライアントIDとクライアントシークレットをセット
@@ -63,6 +70,7 @@ const Search = () => {
         type="text"
         value={artistName}
         onChange={(e) => setArtistName(e.target.value)}
+        onKeyDown={handleKeyDown} // Enter キーの処理を追加
       />
       <button onClick={handleSearch}>Search</button>
 

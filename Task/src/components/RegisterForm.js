@@ -1,15 +1,12 @@
-// // RegisterForm.js
-// import React, { useEffect, useState } from "react";
 
-// import { auth, db, provider } from "../firebase";
+// import React from "react"; // 未使用のimportを削除
+
+// import { auth, provider } from "../firebase";
 // import { signInWithPopup } from "firebase/auth";
-// import { useAuthState } from "react-firebase-hooks/auth";
+// import { useAuthState } from "react-firebase-hooks/auth"; // 未使用のimportを削除
 // import { Link } from "react-router-dom"; // Linkをimport
 
-
-// import './RegisterFormStyle.css'
-
-
+// import './RegisterFormStyle.css';
 
 // function RegisterForm() {
 //     const [user] = useAuthState(auth);
@@ -42,7 +39,7 @@
 // // google signin
 // function SignInButton() {
 //     const signInWithGoogle = () => {
-//         //firebaseを使ってグーグルでログインする
+//         // Firebaseを使ってGoogleでログインする
 //         signInWithPopup(auth, provider)
 //     };
 
@@ -50,38 +47,42 @@
 //         <button className="RegiSin" onClick={signInWithGoogle}>
 //             <p className="RegiP">Googleでサインイン</p>
 //         </button>
+        
 //     )
 // }
 
 // function SignoutButton() {
 //     return (
-//         <button className="RegiO"onClick={() => auth.signOut()}>
+//         <button className="RegiO" onClick={() => auth.signOut()}>
 //             <p>サインアウト</p>
 //         </button>
 //     )
 // }
 
+
 // function UserInfo() {
-//     return <div className="userInfo">
-//         <img className="RegiImg" src={auth.currentUser.photoURL} alt="" />
-//         <p className="RegiP">{auth.currentUser.displayName}</p>
-//     </div>;
+//     return (
+//         <div className="userInfo">
+//             <img className="RegiImg" src={auth.currentUser.photoURL} alt="" />
+//             <p className="RegiP">{auth.currentUser.displayName}</p>
+//         </div>
+//     );
 // }
 
 
-import React from "react"; // 未使用のimportを削除
 
+import React from "react";
 import { auth, provider } from "../firebase";
 import { signInWithPopup } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth"; // 未使用のimportを削除
-import { Link } from "react-router-dom"; // Linkをimport
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link } from "react-router-dom";
 
 import './RegisterFormStyle.css';
 
 function RegisterForm() {
     const [user] = useAuthState(auth);
 
-    return(
+    return (
         <div className="RegiForm">
             {user ? (
                 <>
@@ -91,7 +92,7 @@ function RegisterForm() {
                     <UserInfo />
                     <SignoutButton />
                     <Link to="/home">
-                        <button className="RegiSin">次の画面へ</button>
+                        <button className="RegiSin">ホーム画面へ</button>
                     </Link>
                 </>
             ) : (
@@ -101,23 +102,23 @@ function RegisterForm() {
                 </>
             )}
         </div>
-    )
+    );
 }
 
-export default RegisterForm
+export default RegisterForm;
 
 // google signin
 function SignInButton() {
     const signInWithGoogle = () => {
         // Firebaseを使ってGoogleでログインする
-        signInWithPopup(auth, provider)
+        signInWithPopup(auth, provider);
     };
 
     return (
         <button className="RegiSin" onClick={signInWithGoogle}>
             <p className="RegiP">Googleでサインイン</p>
         </button>
-    )
+    );
 }
 
 function SignoutButton() {
@@ -125,7 +126,7 @@ function SignoutButton() {
         <button className="RegiO" onClick={() => auth.signOut()}>
             <p>サインアウト</p>
         </button>
-    )
+    );
 }
 
 function UserInfo() {
