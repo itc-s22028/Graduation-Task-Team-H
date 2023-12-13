@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './HomeScene/Home';
 import Search from './SearchScene/Search';
-import Intro from './IntroScene/Intro';
+import CategorySelect from './IntroScene/CategorySelect';
 
 function App() {
   return (
@@ -11,9 +11,11 @@ function App() {
         <hr />
 
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/Home" element={<Home />} />
           <Route path="/Search" element={<Search />} />
-          <Route path='/Intro' element={<Intro />} />
+          <Route path='/CategorySelect' element={<CategorySelect />} />
+
+          <Route path="/Search" element={<Search />} />
         </Routes>
         
         
