@@ -1,8 +1,40 @@
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+// import Home from './HomeScene/Home';
+// import Search from './SearchScene/Search';
+// import Intro from './IntroScene/Intro';
+// import Login from './components/RegisterForm.js'
+
+
+// function App() {
+//   return (
+//     <Router>
+//       <div>
+//         <hr />
+
+//         <Routes>
+//           <Route path="/" element={<Login />} />
+//           <Route path="/home" element={<Home />} />
+//           <Route path="/Search" element={<Search />} />
+//           <Route path='/Intro' element={<Intro />} />
+//         </Routes>
+        
+        
+        
+
+//       </div>
+//     </Router>
+//   );
+// }
+
+// export default App;
+
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './HomeScene/Home';
 import Search from './SearchScene/Search';
 import Intro from './IntroScene/Intro';
+import Login from './components/RegisterForm.js';
 
 function App() {
   return (
@@ -11,17 +43,15 @@ function App() {
         <hr />
 
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Search" element={<Search />} />
-          <Route path='/Intro' element={<Intro />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/intro" element={<Intro />} />
         </Routes>
-        
-        
-        
-
       </div>
     </Router>
   );
 }
 
 export default App;
+
