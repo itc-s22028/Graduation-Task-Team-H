@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './HomeScene/Home';
 import Search from './SearchScene/Search';
-import Intro from './IntroScene/Intro';
+import Intro from './IntroScene/CategorySelect.js';
 import Login from './components/RegisterForm.js';
 
 function App() {
