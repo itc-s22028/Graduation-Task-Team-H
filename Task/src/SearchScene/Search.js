@@ -14,7 +14,7 @@ const Search = () => {
   const [albumName, setAlbumName] = useState('');
   const [releaseDate, setReleaseDate] = useState('');
   const [reviews, setReviews] = useState([]);
-  const [newReview, setNewReview] = useState('');
+  const [newReviewInput, setNewReviewInput] = useState('');
   const [userDisplayName, setUserDisplayName] = useState('Anonymous');
 
   const handleSearch = async () => {
@@ -156,7 +156,7 @@ const Search = () => {
   };
 
   const postReview = async () => {
-    if (newReview.trim() === '') {
+    if (newReviewInput.trim() === '') {
       return;
     }
 
@@ -175,12 +175,12 @@ const Search = () => {
       await addDoc(reviewsCollection, {
         userID: user ? user.uid : 'anonymous',
         userName: user ? user.displayName : 'Anonymous',
-        content: newReview,
+        content: newReviewInput,
         timestamp: timestamp,
         rating: 5,
         artistName: artistInfo ? artistInfo.name : '',
       });
-      setNewReview('');
+      setNewReviewInput('');
       fetchReviews();
     } catch (error) {
       console.error('レビューの追加エラー:', error.message);
@@ -253,8 +253,12 @@ const Search = () => {
             <input
               className='KakikomiTx'
               type="text"
+              value={newReviewInput}
+              onChange={(e) => setNewReviewInput(e.target.value)}
             />
-            <button className='KakikomiBt'>書き込む</button>
+            <button className='KakikomiBt' onClick={postReview}>
+              書き込む
+            </button>
           </div>
         </div>
       </div>
