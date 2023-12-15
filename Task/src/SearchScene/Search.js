@@ -99,6 +99,7 @@ const Search = () => {
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       handleSearch();
+      postReview();
     }
   };
 
@@ -250,35 +251,20 @@ const Search = () => {
                 <div className='KuchikomiSearch'>
                   <input
                     className='KakikomiTx'
-                    type="text" />
-                  <button className='KakikomiBt'>書き込む</button>
-                </div>
+                    type="text"
+                    value={newReviewInput}
+                    onChange={(e) => setNewReviewInput(e.target.value)}
+                    placeholder="すてきなコメントを書く"
+                    onKeyDown={handleKeyDown}
+                  />
+                  <button className='KakikomiBt' onClick={postReview}>
+                    書き込む
+                  </button>
+          </div>
               </div>
             </div>
 
           )}
-        </div>
-
-        <div className='RightCon'>
-          <div className="kuchikomi">
-            {reviews.map((review) => (
-              <div key={review.id} className='minmiru'>
-                <p className='minmiruP'>{review.content}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className='KuchikomiSearch'>
-            <input
-              className='KakikomiTx'
-              type="text"
-              value={newReviewInput}
-              onChange={(e) => setNewReviewInput(e.target.value)}
-            />
-            <button className='KakikomiBt' onClick={postReview}>
-              書き込む
-            </button>
-          </div>
         </div>
       </div>
     </div>
