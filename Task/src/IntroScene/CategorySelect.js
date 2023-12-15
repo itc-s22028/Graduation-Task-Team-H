@@ -10,8 +10,8 @@ const CategorySelect = () => {
     if (genreName) {
       handleSearch();
     }
-  }, [genreName]);
-
+  }, [genreName, handleSearch]);
+  
   const handleSearch = async () => {
     try {
       const accessToken = await getAccessToken();

@@ -213,30 +213,49 @@ const Search = () => {
       <div className='bodyCon'>
         <div className='LeftCon'>
           {artistInfo && (
-            <div>
-              <img className="artistPic" src={artistInfo.images[0].url} alt="artistPic" />
-              <h3>{artistInfo.name}</h3>
-              <p className='searchP'>ジャンル: {artistInfo.genres.join(' | ')}</p>
-              <p className='searchP'>spotifyでのフォロワー数: {artistInfo.followers.total}</p>
-              <p className='searchP'>アーティストの人気度: {artistInfo.popularity} / 100</p>
+            <div className='bodyCon'>
+              <div>
+                <img className="artistPic" src={artistInfo.images[0].url} alt="artistPic" />
+                <h3>{artistInfo.name}</h3>
+                <p className='searchP'>ジャンル: {artistInfo.genres.join(' | ')}</p>
+                <p className='searchP'>spotifyでのフォロワー数: {artistInfo.followers.total}</p>
+                <p className='searchP'>アーティストの人気度: {artistInfo.popularity} / 100</p>
 
-              {bgmPreviewUrl && (
-                <div>
-                  {albumName === trackName ? (
-                    <p className='searchP'>曲名 : {trackName}</p>
-                  ) : (
-                    <>
-                      <p className='searchP'>アルバム: {albumName}</p>
+                {bgmPreviewUrl && (
+                  <div>
+                    {albumName === trackName ? (
                       <p className='searchP'>曲名 : {trackName}</p>
-                    </>
-                  )}
-                  <p className='searchP'>リリース日: {releaseDate}</p>
-                  <button className='playBt' onClick={togglePlayback}>
-                    {isPlaying ? 'Stop BGM' : 'Play BGM'}
-                  </button>
+                    ) : (
+                      <>
+                        <p className='searchP'>アルバム: {albumName}</p>
+                        <p className='searchP'>曲名 : {trackName}</p>
+                      </>
+                    )}
+                    <p className='searchP'>リリース日: {releaseDate}</p>
+                    <button className='playBt' onClick={togglePlayback}>
+                      {isPlaying ? 'Stop BGM' : 'Play BGM'}
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className='RightCon'>
+                <div className="kuchikomi">
+                  {reviews.map((review) => (
+                    <div key={review.id} className='minmiru'>
+                      <p className='minmiruP'>{review.content}</p>
+                    </div>
+                  ))}
                 </div>
-              )}
+
+                <div className='KuchikomiSearch'>
+                  <input
+                    className='KakikomiTx'
+                    type="text" />
+                  <button className='KakikomiBt'>書き込む</button>
+                </div>
+              </div>
             </div>
+
           )}
         </div>
 
