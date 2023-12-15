@@ -1,6 +1,147 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.bodyCon {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  margin-top: 60px;
+
+  /* 中央のコンテナに対するスタイルをここに追加できます */
+}
+
+.RightCon {
+  display: flex;
+  flex-flow: column;
+  margin: 0;
+  border-left: 1px solid #000;
+}
+
+.LeftCon {
+  display: flex;
+  flex-flow: column;
+  margin: 0;
+  padding-right: 30px;
+  height: auto;
+}
+
+.KuchikomiSearch {
+  border-top: 1px solid #000;
+  bottom: 30px; /* 下端に配置 */
+  margin: 0 0 0 45px;
+  padding-top: 20px;
+}
+
+.kuchikomi {
+  padding-left: 45px;
+}
+
 .title {
     border-bottom: 1px solid #000;
     margin-top: 100px;
     margin-bottom: 40px;
     width: 600px;
   }
+
+/* 検索バーとボタンの設定 */ 
+
+.SearchResultCon {
+  display: flex;
+  align-items: center; /* 垂直方向の中央揃え */
+  justify-content: space-between; /* 水平方向に左右に広げる */
+  text-align: left;
+  margin: 10px 0 0 0;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border-bottom: 1px solid #000;
+}
+
+.leftButtons {
+  display: flex;
+  align-items: center; /* 垂直方向の中央揃え */
+  margin-left: 0;
+}
+
+.rightButtons {
+  align-items: center; /* 垂直方向の中央揃え */
+  margin-right: 20px;
+}
+
+.SearchTx {
+  width: 300px;
+  height: 50px;
+  border-radius: 40px;
+}
+
+.SearchBt {
+  width: 100px;
+  height: 50px;
+  border-radius: 40px;
+}
+
+.BackHomeBt {
+  width: 100px;
+  height: 50px;
+  border-radius: 40px;
+}
+
+
+.playBt {
+  width: 100px;
+  height: 50px;
+  border-radius: 40px;  margin: auto;
+  background-color: rgb(17, 160, 253);
+  color: white;
+  margin-top: 30px;
+  height: 40px;
+}
+
+.searchP {
+  font-size: 20px;
+  margin: 10px 0;
+  height: auto;
+}
+
+/* アーティストの画像設定 */
+
+.artistPic {
+  width: 300px;
+  margin: 50px;
+
+  float: left;
+}
+
+/* 右半分の設定 */
+
+
+
+.minmiru {
+  margin-top: 15x;
+  margin-bottom: 15px;
+  border: 1px solid #000;
+  width: 400px;
+  height: auto;
+  
+}
+.minmiruP {
+  margin: auto;
+  width: 300px;
+  height: auto;
+}
+
+
+
+
+.KakikomiTx {
+  width: 300px;
+  height: 50px;
+  border-radius: 40px;
+}
+
+.KakikomiBt {
+  width: 100px;
+  height: 50px;
+  border-radius: 40px;
+}
+
