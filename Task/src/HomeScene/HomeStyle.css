@@ -1,72 +1,85 @@
 * {
-    font-family: Helvetica;
-    text-align: center;
-    margin: auto;
-  }
+  font-family: Helvetica;
+  text-align: center;
+  margin: auto;
+}
+::-webkit-scrollbar {
+  display: none;
+}
 
 /* 上の説明 */
 .title {
-  border-bottom: 1px solid #000;
-  margin-top: 100px;
-  margin-bottom: 40px;
-  width: 600px;
+border-bottom: 1px solid #000;
+margin-top: 100px;
+margin-bottom: 40px;
+width: 600px;
 }
 
 /* 画像のStyle */
 .HomeLogo {
-  width: 120px;
-  height: 120px;
+width: 120px;
+height: 120px;
 }
+
+.BackgroundImage {
+  background-image: url('../images/Nakasone.png');
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  background-blend-mode: lighten;
+  background-size:cover;
+  background-position:50%;
+}
+
 
 /* 色々 */
 
 .AllContent {
-  display: flex;
-  justify-content: center;
+display: flex;
+justify-content: center;
 }
 
 .SearchCon {
-  display:flex;
-  flex-flow: column;
-  margin: 0 30px 0 0;
+display:flex;
+flex-flow: column;
+margin: 0 30px 0 0;
 }
 
 .IntroCon {
-  display:flex;
-  flex-flow: column;
-  border-left: 1px solid #000;
-  margin: 0;
-  padding: 0 0 0 30px;
+display:flex;
+flex-flow: column;
+border-left: 1px solid #000;
+margin: 0;
+padding: 0 0 0 30px;
 }
 
 .SelectPic {
-  width: auto;
-  height: auto;
+width: auto;
+height: auto;
 }
 
 .KuchikomiPic {
-  width: auto;
-  height: auto;
+width: auto;
+height: auto;
 }
 
 
 .NextSearchBt {
-  width: 300px;
-  margin: auto;
-  border-radius: 8px;
-  background-color: rgb(17, 160, 253);
-  color: white;
-  margin-top: 30px;
-  height: 40px;
+width: 300px;
+margin: auto;
+border-radius: 8px;
+background-color: rgb(17, 160, 253);
+color: white;
+margin-top: 30px;
+height: 40px;
 
 }
 
 .IntroBt {
-  width: 300px;
-  margin: auto;
-  border-radius: 8px;
-  background-color: rgb(17, 160, 253);
-  color: white;
-  margin-top: 30px;
-  height: 40px;
+width: 300px;
+margin: auto;
+border-radius: 8px;
+background-color: rgb(17, 160, 253);
+color: white;
+margin-top: 30px;
+height: 40px;
 }
