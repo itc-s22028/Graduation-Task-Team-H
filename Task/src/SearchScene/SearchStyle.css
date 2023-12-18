@@ -34,7 +34,8 @@
 }
 
 .kuchikomi {
-  padding-left: 45px;
+  overflow-y: auto;
+  max-height: 400px
 }
 
 .title {
@@ -125,9 +126,10 @@
   
 }
 .minmiruP {
-  margin: auto;
+  margin: 10px auto;
   width: 300px;
   height: auto;
+  word-wrap: break-word;
 }
 
 
@@ -176,13 +178,15 @@
 .userContainer {
   display: flex;
   align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #000;
 }
 
 .userIcon {
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  margin-right: 10px;
+  margin: 0 10px;
 }
 
 .userName {
@@ -191,7 +195,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-left: 5px; /* 名前の左側に余白を追加 */
+  margin-left: 5px;
+  margin-top: 4px;
 }
 
 
