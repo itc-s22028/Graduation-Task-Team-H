@@ -73,6 +73,11 @@ function Home() {
             onClick={handleLogoClick}
             style={{ cursor: 'pointer' }}
           />
+          <button
+            className="goHome"
+            onClick={() => (window.location.href = '/')}>
+              ログインへ
+          </button>
           <div className="Hometitle">
             <h3>口コミ検索かイントロドンを選ぶ</h3>
           </div>

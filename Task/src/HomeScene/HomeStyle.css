@@ -84,6 +84,22 @@ margin-top: 30px;
 height: 40px;
 }
 
+.goHome {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px #626262;
+    cursor: pointer;
+    background-color: rgb(17, 160, 253);
+    color: white;
+    font-weight: 800;
+    font-size: 15px;
+    width: auto;
+}
+
 
 /* /////////////////////////////////// */
 
