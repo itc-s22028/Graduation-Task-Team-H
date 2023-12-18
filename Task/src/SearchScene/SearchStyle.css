@@ -145,3 +145,54 @@
   border-radius: 40px;
 }
 
+.RightCon {
+  display: flex;
+  flex-flow: column;
+  margin: 0 30px 0 0; /* 右側のコンテナの右側に余白を追加 */
+  border-left: 1px solid #000;
+}
+
+.minmiru {
+  margin-top: 15px; /* 上部の余白を修正 */
+  margin-bottom: 15px;
+  border: 1px solid #000;
+  width: 400px;
+  height: auto;
+}
+
+.title {
+  border-bottom: 1px solid #000;
+  margin-top: 100px;
+  margin-bottom: 40px;
+  width: 600px;
+}
+
+.artistPic {
+  width: 300px;
+  margin: 50px;
+  float: left;
+}
+
+.userContainer {
+  display: flex;
+  align-items: center;
+}
+
+.userIcon {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.userName {
+  font-weight: bold;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: 5px; /* 名前の左側に余白を追加 */
+}
+
+
+
