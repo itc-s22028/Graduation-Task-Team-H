@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-
+import MigiYagi from '../images/MigiYagi.png';
+import SearchHome from '../images/HomeLogo.png';
 import axios from "axios";
 import "./SearchStyle.css";
 import {
@@ -25,6 +26,17 @@ const Search = () => {
   const [newReviewInput, setNewReviewInput] = useState("");
   const [userDisplayName, setUserDisplayName] = useState("Anonymous");
   const [userProfileImage, setUserProfileImage] = useState("");
+
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
 
   useEffect(() => {
     const auth = getAuth();
@@ -130,6 +142,7 @@ const Search = () => {
       stopBGM();
     }
   };
+  
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -297,12 +310,19 @@ const Search = () => {
           </button>
         </div>
         <div className="rightButtons">
-          <button
-            className="BackHomeBt"
-            onClick={() => (window.location.href = "/Home")}
-          >
-            HOME
-          </button>
+        <img
+          className="BackHomeBt"
+          onClick={() => (window.location.href = "/Home")}
+          src={isHovered ? SearchHome : MigiYagi}
+          alt=""
+          style={{
+            cursor: 'pointer',
+            transform: isHovered ? 'scale(1.2)' : 'scale(1)',
+            transition: 'transform 0.3s ease',
+          }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        />
         </div>
       </div>
 

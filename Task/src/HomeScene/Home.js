@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import './HomeStyle.css';
 import HomeLogo from '../images/HomeLogo.png';
-import BackgroundImage1 from '../images/Nakasone.png'; // 画像のパスを正しく指定
+import BackgroundImage1 from '../images/HidaYagi.png'; // 画像のパスを正しく指定
 import BackgroundImage2 from '../images/hikanoko.jpg';
 import KuchikomiPic from '../images/KuchikomiPic.png';
 import SelectPic from '../images/SelectPic.png';
@@ -45,7 +45,7 @@ function Home() {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundSize: '300px',
+    backgroundSize: '100px',
     overflow: 'hidden',
     animation: 'moveBackground 10s linear infinite', 
   };
