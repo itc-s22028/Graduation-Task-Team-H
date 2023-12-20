@@ -10,7 +10,6 @@ import NakasoneRoom from './Command/NakasoneRoom.js';
 
 
 
-
 function App() {
   return (
     <Router>
@@ -25,8 +24,6 @@ function App() {
           <Route path="/intro-question" element={<IntroQuestion />} />
           <Route path="/Command" element={<Command />} />
           <Route path="/NakasoneRoom" element={<NakasoneRoom />} />
-
-
         </Routes>
       </div>
     </Router>
