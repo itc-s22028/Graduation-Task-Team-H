@@ -379,7 +379,11 @@ const Search = () => {
                         />
                         <p className="userName">{review.userName}</p>
                         <p className="postTime">
-                          {calculateElapsedTime(review.timestamp)}前
+                        {calculateElapsedTime(review.timestamp) === '1分未満' ? (
+                            <span>{calculateElapsedTime(review.timestamp)}</span>
+                          ) : (
+                            <span>{calculateElapsedTime(review.timestamp)}前</span>
+                          )}
                         </p>
                       </div>
                       <p className="minmiruP">{review.content}</p>
