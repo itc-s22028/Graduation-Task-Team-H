@@ -12,6 +12,9 @@ import {
   where,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
+import { formatDistanceToNow, format } from "date-fns";
+import { ja } from "date-fns/locale";
+import jaLocale from "date-fns/locale/ja";
 
 const Search = () => {
   const [artistName, setArtistName] = useState("");
@@ -37,13 +40,16 @@ const Search = () => {
     setIsHovered(false);
   };
 
+  const calculateElapsedTime = (timestamp) => {
+    return formatDistanceToNow(timestamp.toDate(), { locale: jaLocale });
+  };
+
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserDisplayName(user.displayName || "Anonymous");
 
-        // ユーザーが Google アカウントでログインしている場合、表示名とアイコンを取得
         if (
           user.providerData &&
           user.providerData[0]?.providerId === "google.com"
@@ -146,9 +152,7 @@ const Search = () => {
     if (event.key === "Enter") {
       if (event.shiftKey) {
         // Shift + Enterの場合は改行
-        // ここに改行の処理を追加
       } else {
-        // Enterの場合は通常の処理（検索と口コミ投稿）
         handleSearch();
         postReview();
       }
@@ -157,7 +161,6 @@ const Search = () => {
 
   const handleReviewKeyDown = (event) => {
     if (event.key === "Enter" && event.shiftKey) {
-      // Shift + Enterの場合は改行
       const textarea = event.target;
       const value = textarea.value;
       const selectionStart = textarea.selectionStart;
@@ -170,15 +173,17 @@ const Search = () => {
 
       setNewReviewInput(newValue);
 
-      // Enterキーのデフォルトの挙動を抑制
       event.preventDefault();
     } else if (event.key === "Enter") {
-      // Enterの場合は通常の投稿処理
       postReview();
     }
   };
 
-  function DisplayReview({ content }) {
+  function DisplayReview({ content, timestamp }) {
+    const elapsed = formatDistanceToNow(new Date(timestamp.toDate()), {
+      locale: ja,
+    });
+
     const formattedContent = content.split("\n").map((line, index) => (
       <React.Fragment key={index}>
         {line}
@@ -187,7 +192,10 @@ const Search = () => {
     ));
 
     return (
-      <div dangerouslySetInnerHTML={{ __html: formattedContent.join("") }} />
+      <div>
+        <div dangerouslySetInnerHTML={{ __html: formattedContent.join("") }} />
+        <p>{elapsed}</p>
+      </div>
     );
   }
 
@@ -271,16 +279,13 @@ const Search = () => {
         userID: user ? user.uid : "anonymous",
         userName: user ? user.displayName || "Anonymous" : "Anonymous",
         userIcon: userProfileImage || "",
-        content: newReviewInput.replace(/\n/g, "<br>"), // 改行をHTMLの<br>タグに変換
+        content: newReviewInput.replace(/\n/g, "<br>"),
         timestamp: timestamp,
         rating: 5,
         artistName: artistInfo ? artistInfo.name : "",
       });
 
-      // 改行を含むコメントを投稿した後、テキストエリアをクリア
       setNewReviewInput("");
-
-      // 投稿後に新しい口コミを再取得
       fetchReviews();
     } catch (error) {
       console.error("レビューの追加エラー:", error.message);
@@ -373,6 +378,9 @@ const Search = () => {
                           alt="userIcon"
                         />
                         <p className="userName">{review.userName}</p>
+                        <p className="postTime">
+                          {calculateElapsedTime(review.timestamp)}前
+                        </p>
                       </div>
                       <p className="minmiruP">{review.content}</p>
                     </div>
