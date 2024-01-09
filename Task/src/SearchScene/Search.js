@@ -29,8 +29,8 @@ const Search = () => {
   const [newReviewInput, setNewReviewInput] = useState("");
   const [userDisplayName, setUserDisplayName] = useState("Anonymous");
   const [userProfileImage, setUserProfileImage] = useState("");
-
   const [isHovered, setIsHovered] = useState(false);
+  const [popularTracks, setPopularTracks] = useState([]);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -49,7 +49,6 @@ const Search = () => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserDisplayName(user.displayName || "Anonymous");
-
         if (
           user.providerData &&
           user.providerData[0]?.providerId === "google.com"
@@ -58,7 +57,6 @@ const Search = () => {
         }
       }
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -77,6 +75,7 @@ const Search = () => {
         setAlbumName(topTracksResponse.tracks[0].album.name);
         setReleaseDate(topTracksResponse.tracks[0].album.release_date);
         setTrackName(topTracksResponse.tracks[0].name);
+        setPopularTracks(topTracksResponse.tracks);
       }
       setReviews([]);
     } catch (error) {
@@ -101,7 +100,6 @@ const Search = () => {
         const firstTrack = topTracks[0];
         const albumName = firstTrack.album.name;
         const trackName = firstTrack.name;
-
         return response.data;
       } else {
         throw new Error("No top tracks available for this artist.");
@@ -123,7 +121,6 @@ const Search = () => {
         .catch((error) => {
           console.error("Error playing BGM:", error);
         });
-
       audio.addEventListener("ended", handleBGMEnded);
     } else {
       console.warn("No preview available for this track.");
@@ -364,6 +361,17 @@ const Search = () => {
                     <button className="playBt" onClick={togglePlayback}>
                       {isPlaying ? "Stop BGM" : "Play BGM"}
                     </button>
+
+                    <div className="TopTracksContainer">
+                      <div className="left-align">
+                        <h4>人気曲</h4>
+                        <ul>
+                          {popularTracks.map((track) => (
+                            <li key={track.id}>{track.name}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
@@ -379,10 +387,15 @@ const Search = () => {
                         />
                         <p className="userName">{review.userName}</p>
                         <p className="postTime">
-                        {calculateElapsedTime(review.timestamp) === '1分未満' ? (
-                            <span>{calculateElapsedTime(review.timestamp)}</span>
+                          {calculateElapsedTime(review.timestamp) ===
+                          "1分未満" ? (
+                            <span>
+                              {calculateElapsedTime(review.timestamp)}
+                            </span>
                           ) : (
-                            <span>{calculateElapsedTime(review.timestamp)}前</span>
+                            <span>
+                              {calculateElapsedTime(review.timestamp)}前
+                            </span>
                           )}
                         </p>
                       </div>

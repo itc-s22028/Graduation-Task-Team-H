@@ -9,6 +9,14 @@
   margin-top: 60px;
 }
 
+.LeftCon {
+  display: flex;
+  flex-flow: column;
+  margin: 0;
+  padding-right: 30px;
+  height: auto;
+}
+
 .RightCon {
   display: flex;
   flex-flow: column;
@@ -43,18 +51,17 @@
 
 .kuchikomi {
   overflow-y: auto;
-  max-height: 400px
+  max-height: 400px;
 }
 
 .title {
-    border-bottom: 1px solid #000;
-    margin-top: 100px;
-    margin-bottom: 40px;
-    width: 600px;
-  }
+  border-bottom: 1px solid #000;
+  margin-top: 100px;
+  margin-bottom: 40px;
+  width: 600px;
+}
 
-
-/* 検索バーとボタンの設定 */ 
+/* 検索バーとボタンの設定 */
 
 .SearchResultCon {
   display: flex;
@@ -97,11 +104,11 @@
   border-radius: 40px;
 }
 
-
 .playBt {
   width: 100px;
   height: 50px;
-  border-radius: 40px;  margin: auto;
+  border-radius: 40px;
+  margin: auto;
   background-color: rgb(17, 160, 253);
   color: white;
   margin-top: 30px;
@@ -125,15 +132,12 @@
 
 /* 右半分の設定 */
 
-
-
 .minmiru {
   margin-top: 15x;
   margin-bottom: 15px;
   border: 1px solid #000;
   width: 400px;
   height: auto;
-  
 }
 .minmiruP {
   margin: 10px auto;
@@ -141,9 +145,6 @@
   height: auto;
   word-wrap: break-word;
 }
-
-
-
 
 .KakikomiTx {
   width: 300px;
@@ -213,5 +214,16 @@
   margin-right: 10px;
 }
 
+.TopTracksContainer {
+  text-align: left; /* 左寄せにする */
+  margin-top: 20px; /* 適切なマージンを追加 */
+}
 
+.TopTracksContainer ul {
+  list-style: none; /* リストのデフォルトのマーカーを削除 */
+}
+
+.TopTracksContainer li {
+  margin-bottom: 8px; /* 各リストアイテムの下部に余白を追加 */
+}
 /* ///////////////////////////////////////////////////////// */
