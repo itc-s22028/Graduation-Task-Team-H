@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import MigiYagi from "../images/MigiYagi.png";
 import SearchHome from "../images/HomeLogo.png";
 import axios from "axios";
-import "./SearchStyle.css";
 import {
   getFirestore,
   collection,
