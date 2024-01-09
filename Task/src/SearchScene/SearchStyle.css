@@ -26,6 +26,15 @@
 }
 
 .LeftCon {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  margin: 0;
+  padding-right: 30px;
+  height: auto;
+}
+
+.AllCon {
   display: flex;
   flex-flow: column;
   margin: 0;
