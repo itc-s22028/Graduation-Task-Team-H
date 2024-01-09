@@ -5,6 +5,7 @@ import Search from "./SearchScene/Search";
 import Login from "./components/RegisterForm.js";
 import Command from "./Command/Command.js";
 import NakasoneRoom from "./Command/NakasoneRoom.js";
+import Intro from "./IntroScene/CategorySelect.js";
 
 function App() {
   return (
@@ -16,10 +17,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/search" element={<Search />} />
-
-          {/* <Route path="/categoryselect" element={<Intro />} /> */}
-          {/* <Route path="/intro-question" element={<IntroQuestion />} /> */}
-
+          <Route path="/categoryselect" element={<Intro />} />
           <Route path="/Command" element={<Command />} />
           <Route path="/NakasoneRoom" element={<NakasoneRoom />} />
         </Routes>
