@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './HomeScene/Home';
@@ -11,16 +10,6 @@ import IntroDon from './IntroScene/IntroDon.js';
 
 import NakasoneRoom from './Command/NakasoneRoom.js';
 
-
-=======
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./HomeScene/Home";
-import Search from "./SearchScene/Search";
-import Login from "./components/RegisterForm.js";
-import Command from "./Command/Command.js";
-import NakasoneRoom from "./Command/NakasoneRoom.js";
->>>>>>> c8429f5dc666e434f4414b3ed588009c118f26ba
 
 function App() {
   return (
