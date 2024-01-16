@@ -46,6 +46,7 @@ const Search = () => {
 
   useEffect(() => {
     const auth = getAuth();
+    
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserDisplayName(user.displayName || "Anonymous");
@@ -293,8 +294,27 @@ const Search = () => {
     fetchReviews();
   }, [artistInfo]);
 
+
+  const bodyStyle = artistInfo
+    ? {
+        backgroundImage: `url(${artistInfo.images[0].url})`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'repeat',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        backgroundBlendMode: 'lighten',
+        height: '100vh',
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundSize: '100px',
+        overflow: 'hidden',
+        animation: 'moveBackground 10s linear infinite', 
+      }
+    : {};
+
   return (
-    <div>
+    <div style={bodyStyle}>
       <div className="SearchResultCon">
         <div className="leftButtons">
           <input
@@ -326,10 +346,25 @@ const Search = () => {
         </div>
       </div>
 
-      <div className="bodyCon">
+      <div className="TopCon">
         <div className="AllCon">
           {artistInfo && (
             <div className="bodyCon">
+
+              <div className="TopTracksContainer">
+                <div className="left-align">
+                  <h4 className="ninnki">{artistInfo.name}の人気曲</h4>
+                  <ol>
+                    {popularTracks.slice(0, 9).map((track, index) => (
+                      <li key={track.id}>
+                        <span>{index + 1}</span>
+                        {track.name}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+              
               <div className="LeftCon">
                 <img
                   className="artistPic"
@@ -337,18 +372,20 @@ const Search = () => {
                   alt="artistPic"
                 />
                 <h3>{artistInfo.name}</h3>
-                <p className="searchP">
-                  ジャンル: {artistInfo.genres.join("♢")}
-                </p>
-                <p className="searchP">
-                  spotifyでのフォロワー数: {artistInfo.followers.total}
-                </p>
-                <p className="searchP">
-                  アーティストの人気度: {artistInfo.popularity} / 100
-                </p>
+                <div className="artistCon">
+                  <p className="searchP">
+                    ジャンル: {artistInfo.genres.join("♢")}
+                  </p>
+                  <p className="searchP">
+                    spotifyでのフォロワー数: {artistInfo.followers.total}
+                  </p>
+                  <p className="searchP">
+                    アーティストの人気度: {artistInfo.popularity} / 100
+                  </p>
+                </div>
 
                 {bgmPreviewUrl && (
-                  <div>
+                  <div className="artistCon">
                     {albumName === trackName ? (
                       <p className="searchP">曲名 : {trackName}</p>
                     ) : (
@@ -361,55 +398,52 @@ const Search = () => {
                     <button className="playBt" onClick={togglePlayback}>
                       {isPlaying ? "Stop BGM" : "Play BGM"}
                     </button>
-
-                    <div className="TopTracksContainer">
-                      <div className="left-align">
-                        <h4>人気曲</h4>
-                        <ul>
-                          {popularTracks.map((track) => (
-                            <li key={track.id}>{track.name}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
                   </div>
                 )}
               </div>
               <div className="RightCon">
-                <div className="kuchikomi">
-                  {reviews.map((review) => (
-                    <div key={review.id} className="minmiru">
-                      <div className="userContainer">
-                        <img
-                          className="userIcon"
-                          src={review.userIcon}
-                          alt="userIcon"
-                        />
-                        <p className="userName">{review.userName}</p>
-                        <p className="postTime">
-                          {calculateElapsedTime(review.timestamp) ===
-                          "1分未満" ? (
-                            <span>
-                              {calculateElapsedTime(review.timestamp)}
-                            </span>
-                          ) : (
-                            <span>
-                              {calculateElapsedTime(review.timestamp)}前
-                            </span>
-                          )}
-                        </p>
-                      </div>
-                      <p className="minmiruP">{review.content}</p>
-                    </div>
-                  ))}
-                </div>
+                {reviews.length > 0 ? (
+                  <div className="kuchikomi">
+                    {reviews
+                      .sort((a, b) => a.timestamp - b.timestamp) // timestampが古い順にソート
+                      .map((review) => (
+                        <div key={review.id} className="minmiru">
+                          <div className="userContainer">
+                            <img
+                              className="userIcon"
+                              src={review.userIcon}
+                              alt="userIcon"
+                            />
+                            <p className="userName">{review.userName}</p>
+                            <p className="postTime">
+                              {calculateElapsedTime(review.timestamp) === "1分未満" ? (
+                                <span>
+                                  {calculateElapsedTime(review.timestamp)}
+                                </span>
+                              ) : (
+                                <span>
+                                  {calculateElapsedTime(review.timestamp)}前
+                                </span>
+                              )}
+                            </p>
+                          </div>
+                          <p className="minmiruP">{review.content}</p>
+                        </div>
+                      ))}
+                  </div>
+
+                ) : (
+                  <div className="kuchikomi">
+                    <p className="kuchikomiZero">口コミを書こう！</p>
+                  </div>
+                )}
 
                 <div className="KuchikomiSearch">
                   <input
                     className="KakikomiTx"
                     value={newReviewInput}
                     onChange={(e) => setNewReviewInput(e.target.value)}
-                    placeholder="すてきなコメントを書く"
+                    placeholder="すてきな口コミを書く"
                     onKeyDown={handleReviewKeyDown}
                   />
                   <button className="KakikomiBt" onClick={postReview}>

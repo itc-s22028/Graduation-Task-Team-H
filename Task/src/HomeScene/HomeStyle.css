@@ -58,7 +58,7 @@ height: auto;
 }
 
 .KuchikomiPic {
-width: auto;
+width: 700px;
 height: auto;
 }
 
@@ -125,32 +125,8 @@ height: 40px;
     }
 }
 
-/* バラバラになり、画面端に飛んでいき、跳ね返るアニメーション */
-@keyframes scatterText {
-    0% {
-        opacity: 1;
-        transform: translate(0, 0);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(
-            /* ランダムなX座標 */
-            calc((100vw - 300px) * Math(random())),
-            /* ランダムなY座標 */
-            calc((100vh - 60px) * Math(random()))
-        );
-    }
-}
 
-/* バラバラになったテキストが跳ね返るアニメーション */
-@keyframes bounceBack {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-20px);
-    }
-    60% {
-        transform: translateY(-10px);
-    }
-}
+@media only screen and (max-width : 1320px){
+    .for-pc { display:none; }
+    .for-sp { display:block; }
+  }

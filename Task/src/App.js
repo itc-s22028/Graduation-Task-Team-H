@@ -9,6 +9,8 @@ import CategorySelect from './IntroScene/CategorySelect.js';
 import IntroDon from './IntroScene/IntroDon.js';
 
 import NakasoneRoom from './Command/NakasoneRoom.js';
+import Panda from './components/Panda.js';
+
 
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/panda" element={<Panda />} />
+
 
           {/* <Route path="/categoryselect" element={<Intro />} /> */}
           {/* <Route path="/intro-question" element={<IntroQuestion />} /> */}

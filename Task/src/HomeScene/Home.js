@@ -75,7 +75,7 @@ function Home() {
           />
           <button
             className="goHome"
-            onClick={() => (window.location.href = '/')}>
+            onClick={() => (window.location.href = '/Panda')}>
               ログインへ
           </button>
           <div className="Hometitle">
