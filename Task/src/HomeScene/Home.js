@@ -198,9 +198,14 @@ function Home() {
           />
           <button
             className="goHome"
+<<<<<<< HEAD
             onClick={() => (window.location.href = "/")}
           >
             ログインへ
+=======
+            onClick={() => (window.location.href = '/Panda')}>
+              ログインへ
+>>>>>>> 0751b95e1aa6b116a3bc5ea3b2aa72fcfc3c8321
           </button>
           <div className="Hometitle">
             <h3>口コミ検索かイントロドンを選ぶ</h3>
