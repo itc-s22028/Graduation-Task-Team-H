@@ -18,6 +18,10 @@
   border-left: 1px solid #000;
 }
 
+.smartphone {
+  display: flex;
+}
+
 .LeftCon {
   align-items: center;
   display: flex;
@@ -333,6 +337,13 @@
 
 
 @media only screen and (max-width : 950px){
+  .SearchResultCon {
+    z-index: 3; /* 他の要素よりも大きな値に設定 */
+    top: 0;
+    background-color: white;
+    margin-bottom: 20px;
+  }
+
   .SearchBt {
     background: url('../images/Search.png') no-repeat center center;
     background-size: 30px;
@@ -349,13 +360,7 @@
     border-radius: 40px;
   }
   
-  .SearchResultCon {
-    z-index: 2;
-    position: fixed;
-    top: 0;
-    background-color: white;
-    margin-bottom: 20px;
-  }
+
   
   .bodyCon {
     display: block;
@@ -382,9 +387,26 @@
     z-index: 1;
   }
   
+  .LeftConPal {
+    width: 100%;
+    align-items: center;
+    /* display: flex; */
+    flex-flow: column;
+    margin: 0;
+    padding: 40px 0 15px 0;
+    height: auto;
+    border-left: none; 
+    position: -webkit-sticky;
+    position: sticky;
+    top: 60px;
+    z-index: 1;
+    background-color: white;
+    /* order: 1; */
+
+  }
   .LeftCon {
     align-items: center;
-    display: flex;
+    /* display: flex; */
     flex-flow: column;
     margin: 0;
     padding: 40px 0 15px 0;
@@ -396,6 +418,7 @@
     top: 60px;
     z-index: 1;
     background-color: white;
+    /* order: 1; */
 
   }
 
@@ -423,21 +446,30 @@
     top: 0;
     background-color: white;
     z-index: 100;
+    height: auto;
   }
 
   .kuchikomi:hover {
     overflow-y: auto
   }
   
+  .left-align {
+    padding-top: 30px;
+  }
+
   .TopTracksContainer {
-    margin: 20px 0 0 0;
-    padding: 10px;
-    display: block;
+    order: 2;
+    margin: auto;
+    width: 100%;
   }
-  
-  
-  .TopTracksContainer .left-align ol li:nth-child(n+4) {
-    display: none;
+
+  .TopTracksContainer li {
+    height: 55px;
   }
-  
+
+  .smartphone {
+    display: flex;
+    flex-direction: column;
+  }
+    
 }

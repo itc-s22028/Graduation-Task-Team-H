@@ -314,7 +314,7 @@ const Search = () => {
 
   return (
     <div style={bodyStyle}>
-      <div className="SearchResultCon">
+      <header className="SearchResultCon">
         <div className="leftButtons">
           <input
             className="SearchTx"
@@ -343,62 +343,63 @@ const Search = () => {
             onMouseLeave={handleMouseLeave}
           />
         </div>
-      </div>
+      </header>
 
       <div className="TopCon">
         <div className="AllCon">
           {artistInfo && (
             <div className="bodyCon">
-
-              <div className="TopTracksContainer">
-                <div className="left-align">
-                  <h4 className="ninnki">{artistInfo.name}の人気曲</h4>
-                  <ol>
-                    {popularTracks.slice(0, 9).map((track, index) => (
-                      <li key={track.id}>
-                        <span className="SearchSpan">{index + 1}</span>
-                        {track.name}
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-              
-              <div className="LeftCon">
-                <img
-                  className="artistPic"
-                  src={artistInfo.images[0].url}
-                  alt="artistPic"
-                />
-                <h3>{artistInfo.name}</h3>
-                <div className="artistCon">
-                  <p className="searchP">
-                    ジャンル: {artistInfo.genres.join("♢")}
-                  </p>
-                  <p className="searchP">
-                    spotifyでのフォロワー数: {artistInfo.followers.total}
-                  </p>
-                  <p className="searchP">
-                    アーティストの人気度: {artistInfo.popularity} / 100
-                  </p>
-                </div>
-
-                {bgmPreviewUrl && (
-                  <div className="artistCon">
-                    {albumName === trackName ? (
-                      <p className="searchP">曲名 : {trackName}</p>
-                    ) : (
-                      <>
-                        <p className="searchP">アルバム: {albumName}</p>
-                        <p className="searchP">曲名 : {trackName}</p>
-                      </>
-                    )}
-                    <p className="searchP">リリース日: {releaseDate}</p>
-                    <button className="playBt" onClick={togglePlayback}>
-                      {isPlaying ? "Stop BGM" : "Play BGM"}
-                    </button>
+              <div className="smartphone">
+                <div className="TopTracksContainer">
+                  <div className="left-align">
+                    <h4 className="ninnki">{artistInfo.name}の人気曲</h4>
+                    <ol>
+                      {popularTracks.slice(0, 9).map((track, index) => (
+                        <li key={track.id}>
+                          <span className="SearchSpan">{index + 1}</span>
+                          {track.name}
+                        </li>
+                      ))}
+                    </ol>
                   </div>
-                )}
+                </div>
+              
+                <div className="LeftCon">
+                  <img
+                    className="artistPic"
+                    src={artistInfo.images[0].url}
+                    alt="artistPic"
+                  />
+                  <h3>{artistInfo.name}</h3>
+                  <div className="artistCon">
+                    <p className="searchP">
+                      ジャンル: {artistInfo.genres.join("♢")}
+                    </p>
+                    <p className="searchP">
+                      spotifyでのフォロワー数: {artistInfo.followers.total}
+                    </p>
+                    <p className="searchP">
+                      アーティストの人気度: {artistInfo.popularity} / 100
+                    </p>
+                  </div>
+
+                  {bgmPreviewUrl && (
+                    <div className="artistCon">
+                      {albumName === trackName ? (
+                        <p className="searchP">曲名 : {trackName}</p>
+                      ) : (
+                        <>
+                          <p className="searchP">アルバム: {albumName}</p>
+                          <p className="searchP">曲名 : {trackName}</p>
+                        </>
+                      )}
+                      <p className="searchP">リリース日: {releaseDate}</p>
+                      <button className="playBt" onClick={togglePlayback}>
+                        {isPlaying ? "Stop BGM" : "Play BGM"}
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="RightCon">
                 {reviews.length > 0 ? (
