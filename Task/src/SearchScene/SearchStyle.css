@@ -6,16 +6,9 @@
   display: flex;
   justify-content: center;
   width: auto;
-  margin-top: 60px;
+  margin-top: 150px;
 }
 
-.LeftCon {
-  display: flex;
-  flex-flow: column;
-  margin: 0;
-  padding-right: 30px;
-  height: auto;
-}
 
 .RightCon {
   display: flex;
@@ -79,9 +72,10 @@
   padding-bottom: 10px;
   padding: 10px;
   border-bottom: 1px solid #000;
+  width: 100%;
 
   position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: 0;
   background-color: white;
   z-index: 100;
@@ -171,7 +165,9 @@
   border-color: #f9f9f9 transparent transparent transparent;
 }
 
-
+.SearchSpan {
+  transform: skew(-20deg, 0deg);
+}
 
 .TopTracksContainer span {
   display: none; /* span要素を非表示にする */
@@ -355,8 +351,7 @@
   
   .SearchResultCon {
     z-index: 2;
-    position: -webkit-sticky;
-    position: sticky;
+    position: fixed;
     top: 0;
     background-color: white;
     margin-bottom: 20px;
@@ -394,6 +389,7 @@
     margin: 0;
     padding: 40px 0 15px 0;
     height: auto;
+    border-left: none; 
     border-bottom: 2px solid #000;
     position: -webkit-sticky;
     position: sticky;

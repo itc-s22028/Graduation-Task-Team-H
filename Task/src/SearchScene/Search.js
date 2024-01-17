@@ -296,22 +296,21 @@ const Search = () => {
 
 
   const bodyStyle = artistInfo
-    ? {
-        backgroundImage: `url(${artistInfo.images[0].url})`,
-        backgroundPosition: 'center',
-        backgroundRepeat: 'repeat',
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        backgroundBlendMode: 'lighten',
-        height: '100vh',
-        position: 'relative',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundSize: '100px',
-        overflow: 'hidden',
-        animation: 'moveBackground 10s linear infinite', 
-      }
-    : {};
+    // ? {
+    //     backgroundImage: `url(${artistInfo.images[0].url})`,
+    //     backgroundPosition: 'center',
+    //     backgroundRepeat: 'repeat',
+    //     backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    //     backgroundBlendMode: 'lighten',
+    //     height: '100vh',
+    //     position: 'relative',
+    //     display: 'flex',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     overflow: 'hidden',
+    //     backgroundSize: '100px'
+    //   }
+    // : {};
 
   return (
     <div style={bodyStyle}>
@@ -357,7 +356,7 @@ const Search = () => {
                   <ol>
                     {popularTracks.slice(0, 9).map((track, index) => (
                       <li key={track.id}>
-                        <span>{index + 1}</span>
+                        <span className="SearchSpan">{index + 1}</span>
                         {track.name}
                       </li>
                     ))}
