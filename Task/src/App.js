@@ -4,6 +4,15 @@ import Home from './HomeScene/Home';
 import Search from './SearchScene/Search';
 import Intro from './IntroScene/Ranking.js';
 import Login from './components/RegisterForm.js';
+import Command from './Command/Command.js';
+
+import CategorySelect from './IntroScene/CategorySelect.js';
+import IntroDon from './IntroScene/IntroDon.js';
+
+import NakasoneRoom from './Command/NakasoneRoom.js';
+import Panda from './components/Panda.js';
+
+
 
 function App() {
   return (
@@ -16,7 +25,18 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/ranking" element={<Intro />} />
+          <Route path="/panda" element={<Panda />} />
+
+
+          {/* <Route path="/categoryselect" element={<Intro />} /> */}
           {/* <Route path="/intro-question" element={<IntroQuestion />} /> */}
+
+          <Route path="/Command" element={<Command />} />
+          <Route path="/NakasoneRoom" element={<NakasoneRoom />} />
+          <Route path="/CategorySelect" element={<CategorySelect />} />
+          <Route path="/IntroDon" element={<IntroDon />} />
+
+
         </Routes>
       </div>
     </Router>
@@ -24,4 +44,3 @@ function App() {
 }
 
 export default App;
-

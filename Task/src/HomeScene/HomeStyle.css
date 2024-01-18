@@ -8,9 +8,9 @@
 }
 
 /* 上の説明 */
-.title {
+.Hometitle {
 border-bottom: 1px solid #000;
-margin-top: 100px;
+margin-top: 40px;
 margin-bottom: 40px;
 width: 600px;
 }
@@ -58,7 +58,7 @@ height: auto;
 }
 
 .KuchikomiPic {
-width: auto;
+width: 700px;
 height: auto;
 }
 
@@ -83,3 +83,50 @@ color: white;
 margin-top: 30px;
 height: 40px;
 }
+
+.goHome {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px #626262;
+    cursor: pointer;
+    background-color: rgb(17, 160, 253);
+    color: white;
+    font-weight: 800;
+    font-size: 15px;
+    width: auto;
+}
+
+
+/* /////////////////////////////////// */
+
+@keyframes moveBackground {
+    0% {
+        background-position: 100% 0; /* 最初の位置（右端から開始） */
+    }
+    100% {
+        background-position: -100% 0; /* 最後の位置（左端に移動） */
+    }
+}
+
+/* テキストのアニメーション */
+@keyframes swayText {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    25%, 75% {
+        transform: translateY(-30px); /* 上下に動く距離を指定 */
+    }
+    50% {
+        transform: translateY(-60px); /* 上下に動く距離を指定 */
+    }
+}
+
+
+@media only screen and (max-width : 1320px){
+    .for-pc { display:none; }
+    .for-sp { display:block; }
+  }
