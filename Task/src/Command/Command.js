@@ -23,21 +23,24 @@ const Command = () => {
   };
 
   return (
-    <div className="command-container">
-      <p>PASSWORD</p>
-      <form onSubmit={handleGuessSubmit}>
-        <label>
-          <input className="kaitou-input" type="text" value={guess} onChange={handleGuessChange} />
-        </label>
-      </form>
-      <p>{result}</p>
+    <div className='commandBack'>
+      <div className="command-container">
+        <p>PASSWORD</p>
+        <form onSubmit={handleGuessSubmit}>
+          <label>
+            <input className="kaitou-input" type="text" value={guess} onChange={handleGuessChange} />
+          </label>
+        </form>
+        <p>{result}</p>
 
-      {showHomeButton && (
-        <button className="home-button" onClick={() => (window.location.href = '/NakasoneRoom')}>
-          特別な部屋へ
-        </button>
-      )}
+        {showHomeButton && (
+          <button className="home-button" onClick={() => (window.location.href = '/Home')}>
+            特別な部屋へ
+          </button>
+        )}
+      </div>
     </div>
+ 
   );
 };
 

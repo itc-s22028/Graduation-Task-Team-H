@@ -6,19 +6,33 @@
   display: flex;
   justify-content: center;
   width: auto;
-  margin-top: 60px;
-
-  /* 中央のコンテナに対するスタイルをここに追加できます */
+  margin-top: 150px;
 }
+
 
 .RightCon {
   display: flex;
   flex-flow: column;
   margin: 0;
+  padding: 0 0 0 45px;
   border-left: 1px solid #000;
 }
 
+.smartphone {
+  display: flex;
+}
+
 .LeftCon {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  margin: 0;
+  padding: 0 30px;
+  height: auto;
+  border-left: 1px solid #000;
+}
+
+.AllCon {
   display: flex;
   flex-flow: column;
   margin: 0;
@@ -29,33 +43,46 @@
 .KuchikomiSearch {
   border-top: 1px solid #000;
   bottom: 30px; /* 下端に配置 */
-  margin: 0 0 0 45px;
+  margin: 0 0 35px 0;
   padding-top: 20px;
+
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
 }
 
 .kuchikomi {
   overflow-y: auto;
-  max-height: 400px
+  max-height: 400px;
 }
 
 .title {
-    border-bottom: 1px solid #000;
-    margin-top: 100px;
-    margin-bottom: 40px;
-    width: 600px;
-  }
+  border-bottom: 1px solid #000;
+  margin-top: 100px;
+  margin-bottom: 40px;
+  width: 600px;
+}
 
-/* 検索バーとボタンの設定 */ 
+/* 検索バーとボタンの設定 */
 
 .SearchResultCon {
   display: flex;
   align-items: center; /* 垂直方向の中央揃え */
   justify-content: space-between; /* 水平方向に左右に広げる */
   text-align: left;
-  margin: 10px 0 0 0;
+  margin: 0;
   padding-bottom: 10px;
-  padding-left: 20px;
+  padding: 10px;
   border-bottom: 1px solid #000;
+  width: 100%;
+
+  position: -webkit-sticky;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 100;
 }
 
 .leftButtons {
@@ -79,19 +106,20 @@
   width: 100px;
   height: 50px;
   border-radius: 40px;
+  margin-left: 10px;
 }
 
 .BackHomeBt {
-  width: 100px;
-  height: 50px;
+  width: 50px;
+  margin-top: 5px;
   border-radius: 40px;
 }
-
 
 .playBt {
   width: 100px;
   height: 50px;
-  border-radius: 40px;  margin: auto;
+  border-radius: 40px;
+  margin: auto;
   background-color: rgb(17, 160, 253);
   color: white;
   margin-top: 30px;
@@ -104,6 +132,99 @@
   height: auto;
 }
 
+
+
+
+.ninnki {
+  width: auto;
+  position: relative;
+  padding: 10px 10px;
+  margin: 0 15px 10px 15px;
+  border: 3px solid #000000;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+.ninnki:before {
+  position: absolute;
+  bottom: -14px;
+  left: 1em;
+  width: 0;
+  height: 0;
+  content: '';
+  border-width: 14px 12px 0 12px;
+  border-style: solid;
+  border-color: #000000 transparent transparent transparent;
+}
+
+.ninnki:after {
+  position: absolute;
+  bottom: -10px;
+  left: 1em;
+  width: 0;
+  height: 0;
+  content: '';
+  border-width: 14px 12px 0 12px;
+  border-style: solid;
+  border-color: #f9f9f9 transparent transparent transparent;
+}
+
+.SearchSpan {
+  transform: skew(-20deg, 0deg);
+}
+
+.TopTracksContainer span {
+  display: none; /* span要素を非表示にする */
+}
+
+.TopTracksContainer {
+  margin-right: 50px;
+}
+
+.left-align {
+  align-items: left;
+}
+
+.left-align ol {
+  width: auto;
+  display: block;
+  flex-wrap: wrap; /* 必要に応じて折り返す */
+  padding: 0; /* デフォルトのパディングを削除 */
+}
+
+.left-align li {
+  position: relative;
+  overflow: hidden;
+  padding: 15px 20px 15px 100px;
+  border-top: 3px solid #000;
+}
+
+.left-align li::before {
+  position: absolute;
+  top: -150%;
+  left: -100px;
+  width: 180px;
+  height: 300%;
+  content: '';
+  -webkit-transform: rotate(25deg);
+  transform: rotate(25deg);
+  background: #000;
+}
+
+.left-align span {
+  margin-right: 5px;
+  font-size: 2.5rem;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: block;
+  padding-top: 3px;
+  padding-left: 16px;
+  color: #fff;
+}
+
+
 /* アーティストの画像設定 */
 
 .artistPic {
@@ -115,15 +236,12 @@
 
 /* 右半分の設定 */
 
-
-
 .minmiru {
-  margin-top: 15x;
+  margin-top: 15px;
   margin-bottom: 15px;
   border: 1px solid #000;
   width: 400px;
   height: auto;
-  
 }
 .minmiruP {
   margin: 10px auto;
@@ -132,8 +250,14 @@
   word-wrap: break-word;
 }
 
-
-
+.kuchikomiZero {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 10px 0;
+  border: 1px solid #000;
+  width: 400px;
+  height: auto;
+}
 
 .KakikomiTx {
   width: 300px;
@@ -147,12 +271,6 @@
   border-radius: 40px;
 }
 
-.RightCon {
-  display: flex;
-  flex-flow: column;
-  margin: 0 30px 0 0; /* 右側のコンテナの右側に余白を追加 */
-  border-left: 1px solid #000;
-}
 
 .minmiru {
   margin-top: 15px; /* 上部の余白を修正 */
@@ -199,5 +317,159 @@
   margin-top: 4px;
 }
 
+.postTime {
+  margin-right: 10px;
+}
+
+.TopTracksContainer {
+  text-align: left; /* 左寄せにする */
+  margin-top: 20px; /* 適切なマージンを追加 */
+}
+
+.TopTracksContainer ul {
+  list-style: none; /* リストのデフォルトのマーカーを削除 */
+}
+
+.TopTracksContainer li {
+  margin-bottom: 8px; /* 各リストアイテムの下部に余白を追加 */
+}
+/* ///////////////////////////////////////////////////////// */
 
 
+@media only screen and (max-width : 950px){
+  .SearchResultCon {
+    z-index: 3; /* 他の要素よりも大きな値に設定 */
+    top: 0;
+    background-color: white;
+    margin-bottom: 20px;
+  }
+
+  .SearchBt {
+    background: url('../images/Search.png') no-repeat center center;
+    background-size: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 40px;
+    margin-left: 10px;
+    text-indent: -9999px;
+  }
+  
+  .SearchTx {
+    width: 250px;
+    height: 50px;
+    border-radius: 40px;
+  }
+  
+
+  
+  .bodyCon {
+    display: block;
+    justify-content: center;
+    width: auto;
+    margin-top: 30px;
+  }
+  
+  .AllCon {
+    display: flex;
+    flex-flow: column;
+    margin: 0;
+    padding: 0;
+    height: auto;
+  }
+  
+  .RightCon {
+    display: flex;
+    flex-flow: column;
+    margin: 0;
+    border-left: none;
+    padding: 0;
+    border-top: 1px solid #000;
+    z-index: 1;
+  }
+  
+  .LeftConPal {
+    width: 100%;
+    align-items: center;
+    /* display: flex; */
+    flex-flow: column;
+    margin: 0;
+    padding: 40px 0 15px 0;
+    height: auto;
+    border-left: none; 
+    position: -webkit-sticky;
+    position: sticky;
+    top: 60px;
+    z-index: 1;
+    background-color: white;
+    /* order: 1; */
+
+  }
+  .LeftCon {
+    align-items: center;
+    /* display: flex; */
+    flex-flow: column;
+    margin: 0;
+    padding: 40px 0 15px 0;
+    height: auto;
+    border-left: none; 
+    border-bottom: 2px solid #000;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 60px;
+    z-index: 1;
+    background-color: white;
+    /* order: 1; */
+
+  }
+
+  .artistCon {
+    display: none;
+  }
+  
+  .artistPic {
+    width: 300px;
+    margin: 0 50px 20px 50px;
+    float: left;
+  }
+  
+  .KuchikomiSearch {
+    margin: 0;
+    bottom: 0;
+    padding: 20px 0;
+  }
+  
+  .Kuchikomi {
+    margin: 0;
+    padding: 100px 0 20px 0;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 100;
+    height: auto;
+  }
+
+  .kuchikomi:hover {
+    overflow-y: auto
+  }
+  
+  .left-align {
+    padding-top: 30px;
+  }
+
+  .TopTracksContainer {
+    order: 2;
+    margin: auto;
+    width: 100%;
+  }
+
+  .TopTracksContainer li {
+    height: 55px;
+  }
+
+  .smartphone {
+    display: flex;
+    flex-direction: column;
+  }
+    
+}
