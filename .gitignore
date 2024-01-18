@@ -24,3 +24,6 @@ yarn-error.log*
 
 # Ignore .env files
 .env
+
+Task/node_modules/
+

@@ -51,7 +51,7 @@ function Home() {
 
         <div className='IntroCon'>
           <img src={SelectPic} alt="" className="SelectPic" />
-          <button className='IntroBt' onClick={() => window.location.href = '/CategorySelect'}>
+          <button className='IntroBt' onClick={() => window.location.href = '/ranking'}>
             イントロドン
           </button>
         </div>
