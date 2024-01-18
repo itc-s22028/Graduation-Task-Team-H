@@ -26,3 +26,7 @@ yarn-error.log*
 .env
 
 Task/node_modules/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3f277fa836ef8319a67335cc288a4747c17442ef

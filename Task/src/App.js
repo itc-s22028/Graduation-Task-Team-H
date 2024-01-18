@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './HomeScene/Home';
 import Search from './SearchScene/Search';
+import Intro from './IntroScene/Ranking.js';
 import Login from './components/RegisterForm.js';
 import Command from './Command/Command.js';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/ranking" element={<Intro />} />
           <Route path="/panda" element={<Panda />} />
 
 
