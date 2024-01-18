@@ -1,0 +1,64 @@
+/* リストのスタイル */
+.ranking-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* 子要素を縦に配置 */
+  align-items: center; /* 子要素を中央に配置 */
+}
+
+/* 各項目のスタイル */
+.ranking-list li {
+  display: flex;
+  align-items: center; /* アイテムを中央に配置 */
+  margin-bottom: 50px; /* 各項目の下のマージン */
+}
+
+/* 順位のスタイル */
+.rank {
+  font-weight: bold; /* 太字にする */
+  text-align: right; /* 順位を右寄せにする */
+  width: 100px; /* 固定の幅を指定 */
+  margin-right: 50px; /* 順位とアルバムカバーの間隔を調整 */
+  flex-shrink: 0; /* 順位は縮むことを許可しない */
+  font-size: 30px;
+}
+
+
+/* 各項目のスタイル */
+.info {
+  display: flex;
+  flex-direction: column; /* 子要素を縦に配置 */
+  align-items: flex-start; /* 子要素を左寄せに配置 */
+}
+
+/* アルバムカバーのスタイル */
+.album-cover {
+  width: 400px; /* 幅 */
+  height: 400px; /* 高さ */
+  margin-bottom: 10px; /* アルバムカバーと他の情報の下のマージン */
+}
+
+/* 曲名のスタイル */
+.song-name {
+  font-weight: bold;
+  font-size: 20px;
+  height: 30px; /* 曲名の高さを指定 */
+  text-align: left; /* 曲名を左寄せに配置 */
+}
+
+/* 歌手名のスタイル */
+.artist-name {
+  height: 20px; /* 歌手名の高さを指定 */
+  text-align: left; /* 歌手名を左寄せに配置 */
+  color: #555; /* 例: グレーのテキストカラー */
+  margin-bottom: 5px;
+}
+
+/* アルバム名のスタイル */
+.album-name {
+  height: 20px; /* アルバム名の高さを指定 */
+  text-align: left; /* アルバム名を左寄せに配置 */
+  font-style: italic;
+  color: #777; /* 例: グレーのテキストカラー */
+}
