@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MigiYagi from "../images/MigiYagi.png";
 import SearchHome from "../images/HomeLogo.png";
 import axios from "axios";
-import "./SearchStyle.css";
+import "./MusicSearch.css";
 import {
   getFirestore,
   collection,
@@ -31,7 +31,8 @@ const Search = () => {
   const [userProfileImage, setUserProfileImage] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const [popularTracks, setPopularTracks] = useState([]);
-  
+  const [searchResults, setSearchResults] = useState([]);
+  const [selectedTrack, setSelectedTrack] = useState(null);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -66,24 +67,26 @@ const Search = () => {
     try {
       stopBGM();
       const accessToken = await getAccessToken();
+      
+      // artistNameの値をセット
+      setArtistName(trackName);
+      
       const response = await searchArtist(artistName, accessToken);
-      setArtistInfo(response.data.artists.items[0]);
       const topTracksResponse = await getTopTracks(
         response.data.artists.items[0].id,
         accessToken
       );
+  
       if (topTracksResponse) {
-        setBgmPreviewUrl(topTracksResponse.tracks[0].preview_url);
-        setAlbumName(topTracksResponse.tracks[0].album.name);
-        setReleaseDate(topTracksResponse.tracks[0].album.release_date);
-        setTrackName(topTracksResponse.tracks[0].name);
-        setPopularTracks(topTracksResponse.tracks);
+        // ...
       }
       setReviews([]);
     } catch (error) {
       console.error("アーティスト情報の取得エラー:", error.message);
     }
   };
+  
+  
 
   const getTopTracks = async (artistId, token) => {
     try {
@@ -230,6 +233,8 @@ const Search = () => {
       }
     );
   };
+  
+  
 
   const fetchReviews = async () => {
     if (!artistInfo) {
@@ -295,163 +300,68 @@ const Search = () => {
     fetchReviews();
   }, [artistInfo]);
 
+  const handleTrackSelection = (track) => {
+    // 選択された曲をstateにセット
+    setSelectedTrack(track);
+
+    // 他に何か処理が必要ならここに追加
+  };
 
   const bodyStyle = artistInfo
-    // ? {
-    //     backgroundImage: `url(${artistInfo.images[0].url})`,
-    //     backgroundPosition: 'center',
-    //     backgroundRepeat: 'repeat',
-    //     backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    //     backgroundBlendMode: 'lighten',
-    //     height: '100vh',
-    //     position: 'relative',
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     overflow: 'hidden',
-    //     backgroundSize: '100px'
-    //   }
-    // : {};
+    ? {
+        backgroundImage: `url(${artistInfo.images[0].url})`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'repeat',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        backgroundBlendMode: 'lighten',
+        height: '100vh',
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+        backgroundSize: '100px'
+      }
+    : {};
 
   return (
     <div style={bodyStyle}>
       <header className="SearchResultCon">
-        <div className="leftButtons">
-          <input
-            className="SearchTx"
-            type="text"
-            value={artistName}
-            onChange={(e) => setArtistName(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="アーティスト名か曲名で検索"
-          />
-          <button className="SearchBt" onClick={handleSearch}>
-            Search
-          </button>
-        </div>
-        <div className="rightButtons">
-          <img
-            className="BackHomeBt"
-            onClick={() => (window.location.href = "/Home")}
-            src={isHovered ? SearchHome : MigiYagi}
-            alt=""
-            style={{
-              cursor: "pointer",
-              transform: isHovered ? "scale(1.2)" : "scale(1.2)",
-              transition: "transform 0.3s ease",
-            }}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          />
-        </div>
+        <input
+          className="SearchTx"
+          type="text"
+          value={trackName}
+          onChange={(e) => setTrackName(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="曲名で検索"
+        />
+        <button className="SearchBt" onClick={handleSearch}>
+          Search by Track
+        </button>
       </header>
 
       <div className="TopCon">
         <div className="AllCon">
-          {artistInfo && (
+          {searchResults.length > 0 && (
+            <div className="SearchResults">
+              <h4 className="SearchResultsH4">曲名の候補：</h4>
+              <ul>
+                {searchResults.map((result) => (
+                  <li key={result.id} onClick={() => handleTrackSelection(result)}>
+                    {result.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {selectedTrack && (
             <div className="bodyCon">
-              <div className="smartphone">
-                <div className="TopTracksContainer">
-                  <div className="left-align">
-                    <h4 className="ninnki">{artistInfo.name}の人気曲</h4>
-                    <ol>
-                      {popularTracks.slice(0, 9).map((track, index) => (
-                        <li key={track.id}>
-                          <span className="SearchSpan">{index + 1}</span>
-                          {track.name}
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-              
-                <div className="LeftCon">
-                  <img
-                    className="artistPic"
-                    src={artistInfo.images[0].url}
-                    alt="artistPic"
-                  />
-                  <h3>{artistInfo.name}</h3>
-                  <div className="artistCon">
-                    <p className="searchP">
-                      ジャンル: {artistInfo.genres.join("♢")}
-                    </p>
-                    <p className="searchP">
-                      spotifyでのフォロワー数: {artistInfo.followers.total}
-                    </p>
-                    <p className="searchP">
-                      アーティストの人気度: {artistInfo.popularity} / 100
-                    </p>
-                  </div>
-
-                  {bgmPreviewUrl && (
-                    <div className="artistCon">
-                      {albumName === trackName ? (
-                        <p className="searchP">曲名 : {trackName}</p>
-                      ) : (
-                        <>
-                          <p className="searchP">アルバム: {albumName}</p>
-                          <p className="searchP">曲名 : {trackName}</p>
-                        </>
-                      )}
-                      <p className="searchP">リリース日: {releaseDate}</p>
-                      <button className="playBt" onClick={togglePlayback}>
-                        {isPlaying ? "Stop BGM" : "Play BGM"}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="RightCon">
-                {reviews.length > 0 ? (
-                  <div className="kuchikomi">
-                    {reviews
-                      .sort((a, b) => a.timestamp - b.timestamp) // timestampが古い順にソート
-                      .map((review) => (
-                        <div key={review.id} className="minmiru">
-                          <div className="userContainer">
-                            <img
-                              className="userIcon"
-                              src={review.userIcon}
-                              alt="userIcon"
-                            />
-                            <p className="userName">{review.userName}</p>
-                            <p className="postTime">
-                              {calculateElapsedTime(review.timestamp) === "1分未満" ? (
-                                <span>
-                                  {calculateElapsedTime(review.timestamp)}
-                                </span>
-                              ) : (
-                                <span>
-                                  {calculateElapsedTime(review.timestamp)}前
-                                </span>
-                              )}
-                            </p>
-                          </div>
-                          <p className="minmiruP">{review.content}</p>
-                        </div>
-                      ))}
-                  </div>
-
-                ) : (
-                  <div className="kuchikomi">
-                    <p className="kuchikomiZero">口コミを書こう！</p>
-                  </div>
-                )}
-
-                <div className="KuchikomiSearch">
-                  <input
-                    className="KakikomiTx"
-                    value={newReviewInput}
-                    onChange={(e) => setNewReviewInput(e.target.value)}
-                    placeholder="すてきな口コミを書く"
-                    onKeyDown={handleReviewKeyDown}
-                  />
-                  <button className="KakikomiBt" onClick={postReview}>
-                    書き込む
-                  </button>
-                </div>
-              </div>
+              <h2>{selectedTrack.name}</h2>
+              <p>アーティスト: {selectedTrack.artists.map(artist => artist.name).join(", ")}</p>
+              <p>アルバム: {selectedTrack.album.name}</p>
+              <p>リリース日: {selectedTrack.album.release_date}</p>
+              {/* 他に表示したい情報があれば追加 */}
             </div>
           )}
         </div>

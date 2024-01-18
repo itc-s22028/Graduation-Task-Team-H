@@ -11,6 +11,7 @@ import IntroDon from './IntroScene/IntroDon.js';
 
 import NakasoneRoom from './Command/NakasoneRoom.js';
 import Panda from './components/Panda.js';
+import MusicSearch from './MusicSearch/MusicSearch.js';
 
 
 
@@ -35,6 +36,8 @@ function App() {
           <Route path="/NakasoneRoom" element={<NakasoneRoom />} />
           <Route path="/CategorySelect" element={<CategorySelect />} />
           <Route path="/IntroDon" element={<IntroDon />} />
+          <Route path="/MusicSearch" element={<MusicSearch />} />
+
 
 
         </Routes>
