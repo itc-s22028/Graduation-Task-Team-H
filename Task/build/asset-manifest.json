@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.714ee68e.css",
+    "main.js": "/static/js/main.85f34e86.js",
+    "static/js/787.d4aba7ab.chunk.js": "/static/js/787.d4aba7ab.chunk.js",
+    "static/media/Nakasone.png": "/static/media/Nakasone.985d2442e05ffb0817bb.png",
+    "static/media/hikanoko.jpg": "/static/media/hikanoko.a7ec3d9b14fe44103f6c.jpg",
+    "static/media/KuchikomiPic.png": "/static/media/KuchikomiPic.adff8f612120c16d31a5.png",
+    "static/media/SelectPic.png": "/static/media/SelectPic.22bc56355aaf8b303087.png",
+    "index.html": "/index.html",
+    "main.714ee68e.css.map": "/static/css/main.714ee68e.css.map",
+    "main.85f34e86.js.map": "/static/js/main.85f34e86.js.map",
+    "787.d4aba7ab.chunk.js.map": "/static/js/787.d4aba7ab.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.714ee68e.css",
+    "static/js/main.85f34e86.js"
+  ]
+}

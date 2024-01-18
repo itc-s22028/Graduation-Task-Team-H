@@ -104,10 +104,6 @@ function Home() {
         </div>
       ) : null}
 
-        <div className='IntroCon'>
-          <img src={SelectPic} alt="" className="SelectPic" />
-          <button className='IntroBt' onClick={() => window.location.href = '/ranking'}>
-            イントロドン
       {logoClickCount >= maxClickCount && (
         <div style={replacementContentStyle}>
           {/* 3回クリックされたら表示される新しいコンテンツ */}
