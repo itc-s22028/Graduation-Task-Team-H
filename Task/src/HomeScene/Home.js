@@ -95,7 +95,7 @@ function Home() {
               <img src={SelectPic} alt="" className="SelectPic" />
               <button
                 className="IntroBt"
-                onClick={() => (window.location.href = '/CategorySelect')}
+                onClick={() => (window.location.href = '/ranking')}
               >
                 曲のランキングへ
               </button>
