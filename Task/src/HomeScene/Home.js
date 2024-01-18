@@ -80,7 +80,9 @@ function Home() {
             ログインへ
           </button>
           <div className="Hometitle">
-            <h3>口コミ検索かイントロドンを選ぶ</h3>
+            <h3>
+              <p className="HomeTitleTx">アーティスト検索かランキングを選ぶ</p>
+            </h3>
           </div>
           <div className="AllContent">
             <div className="SearchCon">
@@ -89,7 +91,7 @@ function Home() {
                 className="NextSearchBt"
                 onClick={() => (window.location.href = "/Search")}
               >
-                口コミ検索へ
+                アーティスト検索へ
               </button>
             </div>
             <div className="IntroCon">
@@ -98,7 +100,7 @@ function Home() {
                 className="IntroBt"
                 onClick={() => (window.location.href = "/CategorySelect")}
               >
-                イントロドン
+                曲のランキングへ
               </button>
             </div>
           </div>
