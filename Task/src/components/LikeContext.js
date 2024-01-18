@@ -2,14 +2,17 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 const LikeContext = createContext();
 
-export const LikeProvider = ({ children }) => {
+export const LikeProvider = ({ children, userId }) => {
+  // ユーザーごとに一意なキーを生成
+  const storageKey = `likedArtists_${userId}`;
+
   const [likedArtists, setLikedArtists] = useState(
-    JSON.parse(localStorage.getItem("likedArtists")) || []
+    JSON.parse(localStorage.getItem(storageKey)) || []
   );
 
   useEffect(() => {
-    localStorage.setItem("likedArtists", JSON.stringify(likedArtists));
-  }, [likedArtists]);
+    localStorage.setItem(storageKey, JSON.stringify(likedArtists));
+  }, [likedArtists, storageKey]);
 
   const addLikedArtist = (artistName) => {
     setLikedArtists((prevLikedArtists) => [...prevLikedArtists, artistName]);
