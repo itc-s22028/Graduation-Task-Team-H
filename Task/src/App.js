@@ -20,7 +20,7 @@ function App() {
           <hr />
 
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Panda />} />
             <Route path="/home" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/ranking" element={<Intro />} />
