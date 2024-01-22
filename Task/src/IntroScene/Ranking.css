@@ -33,9 +33,9 @@
 }
 
 /* アルバムカバーのスタイル */
-.album-cover {
-  width: 400px; /* 幅 */
-  height: 400px; /* 高さ */
+.AlbumImg {
+  width: 300px; /* 幅 */
+  height: auto; /* 高さ */
   margin-bottom: 10px; /* アルバムカバーと他の情報の下のマージン */
 }
 
@@ -60,5 +60,86 @@
   height: 20px; /* アルバム名の高さを指定 */
   text-align: left; /* アルバム名を左寄せに配置 */
   font-style: italic;
-  color: #777; /* 例: グレーのテキストカラー */
+  color: #777; /* 例: グレーのテキストカラー */  width: auto;
+
+}
+
+/*　ふくち　*/
+
+.OneSet {
+  display: block;
+}
+
+.RankingTop li {
+  position: relative;
+  overflow: hidden;
+  padding: 15px 100px 15px 100px;
+  margin: 15px auto;
+  border-top: 3px solid #000;
+  width: 600px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.RankingTop li::before {
+  position: absolute;
+  top: -150%;
+  left: -100px;
+  width: 220px;
+  height: 300%;
+  content: '';
+  -webkit-transform: rotate(25deg);
+  transform: rotate(25deg);
+  background: #000;
+}
+.RankingTop span {
+  margin-right: 5px;
+  font-size: 2.5rem;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: block;
+  padding-top: 3px;
+  padding-left: 16px;
+  color: #fff;
+}
+ 
+ .RankingTopSpan {
+   font-family: 'Roboto', sans-serif;
+   font-size: 80px;
+   line-height: 1;
+   position: absolute;
+   bottom: -1.6rem;
+   left: 0;
+ }
+
+ span.NamH2 {
+  font-size: 35px;
+  padding: 7px 0 0 5px;
+  font-style: italic;
+  -webkit-font-smoothing: antialiased;
+ }
+
+ .MusName {
+  max-width: 350px;
+ }
+
+
+ .scrollToTopButton {
+  align-items: center;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #ffffff; /* ボタンの背景色 */
+  color: #fff; /* ボタンのテキスト色 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.scrollTopImg {
+  width: 50px;
 }

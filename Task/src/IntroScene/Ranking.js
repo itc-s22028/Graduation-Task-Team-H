@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import scrollTop from "../images/scrollTop.png";
 import axios from 'axios';
+import "./Ranking.css";
 
 const Ranking = () => {
   const [topTracks, setTopTracks] = useState([]);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,24 +71,64 @@ const Ranking = () => {
     fetchData();
   }, []);
 
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+
   return (
-    <div>
-      <h1>Spotify Top Tracks in Japan</h1>
-      <ul>
-        {topTracks.map((track) => (
-          <div key={track.id} style={{ marginBottom: '20px' }}>
-            <p><strong>順位:</strong> {track.rank}</p>
-            <img src={track.album.images[0].url} alt={`${track.name} cover`} style={{ width: '100px', height: '100px' }} />
-            <div>
-              <p><strong>曲名:</strong> {track.name}</p>
-              <p><strong>アーティスト:</strong> {track.artists.map(artist => artist.name).join(', ')}</p>
-              <p><strong>アルバム:</strong> {track.album.name}</p>
-              <p><strong>人気度:</strong> {track.popularity}</p>
-            </div>
-          </div>
-        ))}
-      </ul>
-    </div>
+    <>
+      <div className='OneSet'>
+        {/*曲名と順位を表示させているところ 始まり*/}
+        <h1>Spotify Top Tracks in Japan</h1>
+        <div className="RankingTop">
+          <ol>
+            {topTracks.map((track, index) => (
+              <>
+              <li key={track.id}>
+                <span className='NamH2'>No. {index + 1}</span>
+                <div className='MusName'>
+                  {track.name} - {track.artists.map(artist => artist.name).join(', ')}
+                </div>
+              </li>
+
+              <img className='AlbumImg' src={track.album.images[0].url}/>
+              <div>
+                <p><strong>アルバム:</strong> {track.album.name}</p>
+                <p><strong>人気度:</strong> {track.popularity}</p>
+              </div>        
+              </>
+
+            ))}
+          </ol>
+        </div>
+        {/*終わり*/}
+        
+        {/* 一番上まで戻るボタン */}
+        {scrollPosition > 100 && (
+          <button className="scrollToTopButton" onClick={scrollToTop}>
+            <img src={scrollTop} alt="" className="scrollTopImg" />
+          </button>
+        )}
+      </div>
+
+    </>
   );
 };
 
