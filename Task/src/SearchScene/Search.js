@@ -552,9 +552,18 @@ const Search = () => {
                         </>
                       )}
                       <p className="searchP">リリース日: {releaseDate}</p>
-                      <button className="playBt" onClick={togglePlayback}>
-                        {isPlaying ? "Stop BGM" : "Play BGM"}
-                      </button>
+                      <div className="BgmLike">
+                        <button className="playBt" onClick={togglePlayback}>
+                          {isPlaying ? "Stop BGM" : "Play BGM"}
+                        </button>
+                        <div className="LikeButtonContainer">
+                          <LikeButton
+                            isLiked={isArtistLiked(artistInfo ? artistInfo.name : "")}
+                            onClick={handleLikeClick}
+                          />
+                          <p className="TotalLikes">: {`${totalLikes}`} Like</p>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -592,7 +601,7 @@ const Search = () => {
                   </div>
                 ) : (
                   <div className="kuchikomi">
-                    <p className="kuchikomiZero">口コミを書こう！</p>
+                    <p className="kuchikomiZero">口コミがありません</p>
                   </div>
                 )}
 
@@ -607,13 +616,6 @@ const Search = () => {
                   <button className="KakikomiBt" onClick={postReview}>
                     書き込む
                   </button>
-                  <div className="LikeButtonContainer">
-                    <LikeButton
-                      isLiked={isArtistLiked(artistInfo ? artistInfo.name : "")}
-                      onClick={handleLikeClick}
-                    />
-                    <p className="TotalLikes">{`総いいね: ${totalLikes}`}</p>
-                  </div>
                 </div>
               </div>
             </div>
