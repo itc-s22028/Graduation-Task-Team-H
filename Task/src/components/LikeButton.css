@@ -1,0 +1,20 @@
+.likeButton {
+  background-color: transparent;
+  border: 2px solid black; /* 黒い枠線 */
+  border-radius: 50%; /* 丸い形状 */
+  padding: 8px; /* 必要に応じて調整してください */
+  cursor: pointer;
+}
+
+.likeButton:focus {
+  outline: none; /* フォーカス時の枠線を非表示にする */
+}
+
+.likeButton .heart-icon {
+  width: 20px; /* ハートのアイコンのサイズを調整してください */
+  height: 20px;
+}
+
+.likeButton .heart-inner {
+  fill: transparent; /* ハートの中身を透明にする */
+}

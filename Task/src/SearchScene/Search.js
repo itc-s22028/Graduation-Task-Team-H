@@ -1,3 +1,21 @@
+// import React, { useState, useEffect } from "react";
+// import MigiYagi from "../images/MigiYagi.png";
+// import SearchHome from "../images/HomeLogo.png";
+// import axios from "axios";
+// import "./SearchStyle.css";
+// import {
+//   getFirestore,
+//   collection,
+//   addDoc,
+//   getDocs,
+//   query,
+//   where,
+// } from "firebase/firestore";
+// import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
+// import { formatDistanceToNow, format } from "date-fns";
+// import { ja } from "date-fns/locale";
+// import jaLocale from "date-fns/locale/ja";
+
 import React, { useState, useEffect } from "react";
 import MigiYagi from "../images/MigiYagi.png";
 import SearchHome from "../images/HomeLogo.png";
@@ -10,11 +28,16 @@ import {
   getDocs,
   query,
   where,
+  doc,
+  setDoc,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { formatDistanceToNow, format } from "date-fns";
 import { ja } from "date-fns/locale";
 import jaLocale from "date-fns/locale/ja";
+import LikeButton from "../components/LikeButton"; // ファイルパスは実際のファイルの場所に合わせて修正してください
+import { deleteDoc } from "firebase/firestore";
+import { useLikeContext } from "../components/LikeContext";
 
 const Search = () => {
   const [artistName, setArtistName] = useState("");
@@ -31,7 +54,8 @@ const Search = () => {
   const [userProfileImage, setUserProfileImage] = useState("");
   const [isHovered, setIsHovered] = useState(false);
   const [popularTracks, setPopularTracks] = useState([]);
-  
+  const { isArtistLiked, addLikedArtist, removeLikedArtist } = useLikeContext();
+  const [totalLikes, setTotalLikes] = useState(0);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -45,9 +69,142 @@ const Search = () => {
     return formatDistanceToNow(timestamp.toDate(), { locale: jaLocale });
   };
 
+  const getLikesCount = async () => {
+    const db = getFirestore();
+    const likesCollection = collection(db, "likes");
+
+    const likesQuery = query(
+      likesCollection,
+      where("artistName", "==", artistInfo ? artistInfo.name : "")
+    );
+
+    try {
+      const querySnapshot = await getDocs(likesQuery);
+      return querySnapshot.size; // いいねの数を返す
+    } catch (error) {
+      console.error("Error in getLikesCount:", error.message);
+      return 0;
+    }
+  };
+
+  const fetchLikes = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      const db = getFirestore();
+      const likesCollection = collection(db, "likes");
+
+      const likesQuery = query(
+        likesCollection,
+        where("artistName", "==", artistInfo ? artistInfo.name : "")
+      );
+
+      try {
+        const querySnapshot = await getDocs(likesQuery);
+        setTotalLikes(querySnapshot.size); // 総いいねの数を更新
+        console.log("After fetchLikes");
+      } catch (error) {
+        console.error("Error in fetchLikes:", error.message);
+      }
+    }
+  };
+
+  const handleLike = async () => {
+    try {
+      console.log("Handle Like is called");
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (user) {
+        const db = getFirestore();
+        const likesCollection = collection(db, "likes");
+
+        // 既存のいいねを取得
+        const existingLikeQuery = query(
+          likesCollection,
+          where("userId", "==", user.uid),
+          where("artistName", "==", artistInfo ? artistInfo.name : "")
+        );
+
+        const existingLikeSnapshot = await getDocs(existingLikeQuery);
+
+        if (!existingLikeSnapshot.empty) {
+          // 既存のいいねが存在する場合、そのドキュメントを削除
+          const existingLikeDoc = existingLikeSnapshot.docs[0];
+          await deleteDoc(existingLikeDoc.ref);
+        } else {
+          // 既存のいいねが存在しない場合、新しいドキュメントを追加
+          await addDoc(likesCollection, {
+            userId: user.uid,
+            artistName: artistInfo ? artistInfo.name : "",
+            liked: true,
+          });
+        }
+
+        // デバッグログを追加
+        console.log("Before fetchLikes");
+
+        // Fetch直後にデータの再読み込み
+        await fetchLikes();
+
+        // デバッグログを追加
+        console.log("After fetchLikes");
+      }
+    } catch (error) {
+      console.error("いいねの処理エラー:", error.message);
+    }
+  };
+
+  const handleLikeClick = async () => {
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (user) {
+        const db = getFirestore();
+        const likesCollection = collection(db, "likes");
+
+        // deleteDocのインポートを削除
+
+        // いいねの状態を反転させる
+        const artistName = artistInfo ? artistInfo.name : "";
+        const artistIsLiked = isArtistLiked(artistName);
+        if (!artistIsLiked) {
+          // いいねを追加する場合
+          await addDoc(likesCollection, {
+            userId: user.uid,
+            artistName: artistName,
+            liked: true,
+          });
+          addLikedArtist(artistName);
+          setTotalLikes((prevLikes) => prevLikes + 1); // 総いいねの数を更新
+        } else {
+          // いいねを解除する場合
+          const existingLikeQuery = query(
+            likesCollection,
+            where("userId", "==", user.uid),
+            where("artistName", "==", artistName)
+          );
+
+          const existingLikeSnapshot = await getDocs(existingLikeQuery);
+
+          if (!existingLikeSnapshot.empty) {
+            const existingLikeDoc = existingLikeSnapshot.docs[0];
+            await deleteDoc(existingLikeDoc.ref);
+            removeLikedArtist(artistName);
+            setTotalLikes((prevLikes) => prevLikes - 1); // 総いいねの数を更新
+          }
+        }
+      }
+    } catch (error) {
+      console.error("いいねの処理エラー:", error.message);
+    }
+  };
+
   useEffect(() => {
     const auth = getAuth();
-    
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserDisplayName(user.displayName || "Anonymous");
@@ -293,25 +450,25 @@ const Search = () => {
 
   useEffect(() => {
     fetchReviews();
+    fetchLikes(); // ここで fetchLikes を呼び出す
   }, [artistInfo]);
 
-
-  const bodyStyle = artistInfo
-    // ? {
-    //     backgroundImage: `url(${artistInfo.images[0].url})`,
-    //     backgroundPosition: 'center',
-    //     backgroundRepeat: 'repeat',
-    //     backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    //     backgroundBlendMode: 'lighten',
-    //     height: '100vh',
-    //     position: 'relative',
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     overflow: 'hidden',
-    //     backgroundSize: '100px'
-    //   }
-    // : {};
+  const bodyStyle = artistInfo;
+  // ? {
+  //     backgroundImage: `url(${artistInfo.images[0].url})`,
+  //     backgroundPosition: 'center',
+  //     backgroundRepeat: 'repeat',
+  //     backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  //     backgroundBlendMode: 'lighten',
+  //     height: '100vh',
+  //     position: 'relative',
+  //     display: 'flex',
+  //     justifyContent: 'center',
+  //     alignItems: 'center',
+  //     overflow: 'hidden',
+  //     backgroundSize: '100px'
+  //   }
+  // : {};
 
   return (
     <div style={bodyStyle}>
@@ -364,7 +521,7 @@ const Search = () => {
                     </ol>
                   </div>
                 </div>
-              
+
                 <div className="LeftCon">
                   <img
                     className="artistPic"
@@ -417,7 +574,8 @@ const Search = () => {
                             />
                             <p className="userName">{review.userName}</p>
                             <p className="postTime">
-                              {calculateElapsedTime(review.timestamp) === "1分未満" ? (
+                              {calculateElapsedTime(review.timestamp) ===
+                              "1分未満" ? (
                                 <span>
                                   {calculateElapsedTime(review.timestamp)}
                                 </span>
@@ -432,7 +590,6 @@ const Search = () => {
                         </div>
                       ))}
                   </div>
-
                 ) : (
                   <div className="kuchikomi">
                     <p className="kuchikomiZero">口コミを書こう！</p>
@@ -450,6 +607,13 @@ const Search = () => {
                   <button className="KakikomiBt" onClick={postReview}>
                     書き込む
                   </button>
+                  <div className="LikeButtonContainer">
+                    <LikeButton
+                      isLiked={isArtistLiked(artistInfo ? artistInfo.name : "")}
+                      onClick={handleLikeClick}
+                    />
+                    <p className="TotalLikes">{`総いいね: ${totalLikes}`}</p>
+                  </div>
                 </div>
               </div>
             </div>

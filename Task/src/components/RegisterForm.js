@@ -1,4 +1,3 @@
-
 // import React from "react"; // 未使用のimportを削除
 
 // import { auth, provider } from "../firebase";
@@ -47,7 +46,7 @@
 //         <button className="RegiSin" onClick={signInWithGoogle}>
 //             <p className="RegiP">Googleでサインイン</p>
 //         </button>
-        
+
 //     )
 // }
 
@@ -59,7 +58,6 @@
 //     )
 // }
 
-
 // function UserInfo() {
 //     return (
 //         <div className="userInfo">
@@ -68,8 +66,6 @@
 //         </div>
 //     );
 // }
-
-
 
 // import React from "react";
 // import { auth, provider } from "../firebase";
