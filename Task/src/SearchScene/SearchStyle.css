@@ -115,15 +115,15 @@
   border-radius: 40px;
 }
 
-.playBt {
+button.playBt {
   width: 100px;
   height: 50px;
   border-radius: 40px;
-  margin: auto;
   background-color: rgb(17, 160, 253);
   color: white;
-  margin-top: 30px;
-  height: 40px;
+  margin-right: 7px;
+
+  /* margin-top: 30px; */
 }
 
 .searchP {
@@ -132,6 +132,30 @@
   height: auto;
 }
 
+
+.BgmLike {
+  display: flex;
+}
+
+.LikeButtonContainer {
+  display: flex;
+  margin-left: 5px;
+}
+
+.TotalLikes {
+  margin-left: 3px;
+}
+
+button.likeButton {
+  border: none;
+  background-color: #FFF;
+  
+
+}
+
+button.likeButton.svg {
+  size: 30px;
+}
 
 
 
