@@ -121,9 +121,15 @@ button.playBt {
   border-radius: 40px;
   background-color: rgb(17, 160, 253);
   color: white;
-  margin-right: 7px;
+  margin: auto;
 
   /* margin-top: 30px; */
+}
+
+.PlayBtTop {
+  padding-right: 50px;
+  border-right: 1px solid #000;
+  margin: 0;
 }
 
 .searchP {
@@ -135,11 +141,12 @@ button.playBt {
 
 .BgmLike {
   display: flex;
+  margin: auto;
 }
 
 .LikeButtonContainer {
   display: flex;
-  margin-left: 5px;
+  margin: auto
 }
 
 .TotalLikes {
