@@ -9,7 +9,6 @@
   margin-top: 150px;
 }
 
-
 .RightCon {
   display: flex;
   flex-flow: column;
@@ -121,9 +120,15 @@ button.playBt {
   border-radius: 40px;
   background-color: rgb(17, 160, 253);
   color: white;
-  margin-right: 7px;
+  margin: auto;
 
   /* margin-top: 30px; */
+}
+
+.PlayBtTop {
+  padding-right: 50px;
+  border-right: 1px solid #000;
+  margin: 0;
 }
 
 .searchP {
@@ -132,14 +137,14 @@ button.playBt {
   height: auto;
 }
 
-
 .BgmLike {
   display: flex;
+  margin: auto;
 }
 
 .LikeButtonContainer {
   display: flex;
-  margin-left: 5px;
+  margin: auto;
 }
 
 .TotalLikes {
@@ -148,16 +153,12 @@ button.playBt {
 
 button.likeButton {
   border: none;
-  background-color: #FFF;
-  
-
+  background-color: #fff;
 }
 
 button.likeButton.svg {
   size: 30px;
 }
-
-
 
 .ninnki {
   width: auto;
@@ -175,7 +176,7 @@ button.likeButton.svg {
   left: 1em;
   width: 0;
   height: 0;
-  content: '';
+  content: "";
   border-width: 14px 12px 0 12px;
   border-style: solid;
   border-color: #000000 transparent transparent transparent;
@@ -187,7 +188,7 @@ button.likeButton.svg {
   left: 1em;
   width: 0;
   height: 0;
-  content: '';
+  content: "";
   border-width: 14px 12px 0 12px;
   border-style: solid;
   border-color: #f9f9f9 transparent transparent transparent;
@@ -229,7 +230,7 @@ button.likeButton.svg {
   left: -100px;
   width: 180px;
   height: 300%;
-  content: '';
+  content: "";
   -webkit-transform: rotate(25deg);
   transform: rotate(25deg);
   background: #000;
@@ -247,7 +248,6 @@ button.likeButton.svg {
   padding-left: 16px;
   color: #fff;
 }
-
 
 /* アーティストの画像設定 */
 
@@ -294,7 +294,6 @@ button.likeButton.svg {
   height: 50px;
   border-radius: 40px;
 }
-
 
 .minmiru {
   margin-top: 15px; /* 上部の余白を修正 */
@@ -359,8 +358,7 @@ button.likeButton.svg {
 }
 /* ///////////////////////////////////////////////////////// */
 
-
-@media only screen and (max-width : 950px){
+@media only screen and (max-width: 950px) {
   .SearchResultCon {
     z-index: 3; /* 他の要素よりも大きな値に設定 */
     top: 0;
@@ -369,7 +367,7 @@ button.likeButton.svg {
   }
 
   .SearchBt {
-    background: url('../images/Search.png') no-repeat center center;
+    background: url("../images/Search.png") no-repeat center center;
     background-size: 30px;
     width: 50px;
     height: 50px;
@@ -377,22 +375,20 @@ button.likeButton.svg {
     margin-left: 10px;
     text-indent: -9999px;
   }
-  
+
   .SearchTx {
     width: 250px;
     height: 50px;
     border-radius: 40px;
   }
-  
 
-  
   .bodyCon {
     display: block;
     justify-content: center;
     width: auto;
     margin-top: 30px;
   }
-  
+
   .AllCon {
     display: flex;
     flex-flow: column;
@@ -400,7 +396,7 @@ button.likeButton.svg {
     padding: 0;
     height: auto;
   }
-  
+
   .RightCon {
     display: flex;
     flex-flow: column;
@@ -410,7 +406,7 @@ button.likeButton.svg {
     border-top: 1px solid #000;
     z-index: 1;
   }
-  
+
   .LeftConPal {
     width: 100%;
     align-items: center;
@@ -419,14 +415,13 @@ button.likeButton.svg {
     margin: 0;
     padding: 40px 0 15px 0;
     height: auto;
-    border-left: none; 
+    border-left: none;
     position: -webkit-sticky;
     position: sticky;
     top: 60px;
     z-index: 1;
     background-color: white;
     /* order: 1; */
-
   }
   .LeftCon {
     align-items: center;
@@ -435,7 +430,7 @@ button.likeButton.svg {
     margin: 0;
     padding: 40px 0 15px 0;
     height: auto;
-    border-left: none; 
+    border-left: none;
     border-bottom: 2px solid #000;
     position: -webkit-sticky;
     position: sticky;
@@ -443,25 +438,24 @@ button.likeButton.svg {
     z-index: 1;
     background-color: white;
     /* order: 1; */
-
   }
 
   .artistCon {
     display: none;
   }
-  
+
   .artistPic {
     width: 300px;
     margin: 0 50px 20px 50px;
     float: left;
   }
-  
+
   .KuchikomiSearch {
     margin: 0;
     bottom: 0;
     padding: 20px 0;
   }
-  
+
   .Kuchikomi {
     margin: 0;
     padding: 100px 0 20px 0;
@@ -474,9 +468,9 @@ button.likeButton.svg {
   }
 
   .kuchikomi:hover {
-    overflow-y: auto
+    overflow-y: auto;
   }
-  
+
   .left-align {
     padding-top: 30px;
   }
@@ -495,5 +489,4 @@ button.likeButton.svg {
     display: flex;
     flex-direction: column;
   }
-    
 }

@@ -541,7 +541,7 @@ const Search = () => {
                     </p>
                   </div>
 
-                  {bgmPreviewUrl && (
+                  {bgmPreviewUrl ? (
                     <div className="artistCon">
                       {albumName === trackName ? (
                         <p className="searchP">曲名 : {trackName}</p>
@@ -553,17 +553,31 @@ const Search = () => {
                       )}
                       <p className="searchP">リリース日: {releaseDate}</p>
                       <div className="BgmLike">
-                        <button className="playBt" onClick={togglePlayback}>
-                          {isPlaying ? "Stop BGM" : "Play BGM"}
-                        </button>
+                        <div className="PlayBtTop">
+                          <button className="playBt" onClick={togglePlayback}>
+                            {isPlaying ? "Stop BGM" : "Play BGM"}
+                          </button>
+                        </div>
                         <div className="LikeButtonContainer">
                           <LikeButton
-                            isLiked={isArtistLiked(artistInfo ? artistInfo.name : "")}
+                            isLiked={isArtistLiked(
+                              artistInfo ? artistInfo.name : ""
+                            )}
                             onClick={handleLikeClick}
                           />
                           <p className="TotalLikes">: {`${totalLikes}`} Like</p>
                         </div>
                       </div>
+                    </div>
+                  ) : (
+                    <div className="LikeButtonContainer">
+                      <LikeButton
+                        isLiked={isArtistLiked(
+                          artistInfo ? artistInfo.name : ""
+                        )}
+                        onClick={handleLikeClick}
+                      />
+                      <p className="TotalLikes">: {`${totalLikes}`} Like</p>
                     </div>
                   )}
                 </div>
