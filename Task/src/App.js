@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { LikeProvider } from "../src/components/LikeContext.js";
+
 import Home from "./HomeScene/Home";
 import Search from "./SearchScene/Search";
 import Login from "./components/RegisterForm.js";
@@ -10,7 +12,8 @@ import NakasoneRoom from "./Command/NakasoneRoom.js";
 import Panda from "./components/Panda.js";
 import MusicSearch from "./MusicSearch/MusicSearch.js";
 import Intro from "./IntroScene/Ranking.js";
-import { LikeProvider } from "../src/components/LikeContext.js";
+
+import SearchTest from "./Test/SearchTest.js";
 
 function App() {
   return (
@@ -26,14 +29,13 @@ function App() {
             <Route path="/ranking" element={<Intro />} />
             <Route path="/panda" element={<Panda />} />
 
-            {/* <Route path="/categoryselect" element={<Intro />} /> */}
-            {/* <Route path="/intro-question" element={<IntroQuestion />} /> */}
-
             <Route path="/Command" element={<Command />} />
             <Route path="/NakasoneRoom" element={<NakasoneRoom />} />
             <Route path="/CategorySelect" element={<CategorySelect />} />
             <Route path="/IntroDon" element={<IntroDon />} />
             <Route path="/MusicSearch" element={<MusicSearch />} />
+
+            <Route path="/sTest" element={<SearchTest />} />
           </Routes>
         </LikeProvider>
       </div>
