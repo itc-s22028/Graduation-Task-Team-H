@@ -145,7 +145,7 @@ button.playBt {
 .GoSearch {
   overflow: hidden;
   padding: 10px 30px;
-  background: linear-gradient(90deg, #000 50%, #27acd9 50%);
+  background: linear-gradient(90deg, #000 50%, rgb(17, 160, 253) 50%);
   background-size: 200% 100%;
   color: #fff;
   border: none;
@@ -162,7 +162,7 @@ button.playBt {
 .SearchBack {
   overflow: hidden;
   padding: 10px 20px;
-  background: linear-gradient(90deg, #000 50%, #27acd9 50%);
+  background: linear-gradient(90deg, #000 50%, rgb(17, 160, 253) 50%);
   background-size: 200% 100%;
   color: #fff;
   border: none;
@@ -185,6 +185,7 @@ button.playBt {
 .LikeButtonContainer {
   display: flex;
   margin: auto;
+  --min-margin: 50px;
 }
 
 .TotalLikes {
@@ -504,7 +505,8 @@ div.Names {
     margin: 0;
     padding: 40px 0 15px 0;
     height: auto;
-    border-left: none;
+    /* border-left: none; */
+    border: none;
     border-bottom: 2px solid #000;
     position: -webkit-sticky;
     position: sticky;
