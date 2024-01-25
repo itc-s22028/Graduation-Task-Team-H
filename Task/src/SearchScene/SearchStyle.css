@@ -136,11 +136,6 @@ button.playBt {
 }
 
 .PlayBtTop {
-<<<<<<< HEAD
-  padding-right: 50px;
-  border-right: 1px solid #000;
-  margin: 0;
-=======
   border-right: 1px solid #000;
   margin: auto;
   margin-right: 0;
@@ -179,7 +174,6 @@ button.playBt {
 
 .SearchBack:hover {
   background-position: 100% 0;
->>>>>>> 54b669cca998142d88bbdef50cf1169868f3e36e
 }
 
 .searchP {
@@ -188,14 +182,6 @@ button.playBt {
   height: auto;
 }
 
-<<<<<<< HEAD
-.BgmLike {
-  display: flex;
-  margin: auto;
-}
-
-=======
->>>>>>> 54b669cca998142d88bbdef50cf1169868f3e36e
 .LikeButtonContainer {
   display: flex;
   margin: auto;
