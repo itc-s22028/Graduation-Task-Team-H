@@ -107,6 +107,12 @@ const Ranking = () => {
       <div className="OneSet">
         {/*曲名と順位を表示させているところ 始まり*/}
         <h1>Spotify Top Tracks in Japan</h1>
+        <button
+          className="RanBackHome"
+          onClick={() => (window.location.href = "/Home")}
+        >
+          ◀ Homeへ戻る
+        </button>
         <div className="RankingTop">
           <ol>
             {topTracks.map((track, index) => (

@@ -1,3 +1,27 @@
+.RankingTitle {
+  display: flex;
+}
+
+.RanBackHome {
+  overflow: hidden;
+  background: linear-gradient(90deg, #000 50%, #27acd9 50%);
+  background-size: 200% 100%;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  cursor: pointer;
+  transition: background-position 0.3s;
+  width: auto;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.RanBackHome:hover {
+  background-position: 100% 0;
+}
+
 /* リストのスタイル */
 .ranking-list {
   list-style: none;
