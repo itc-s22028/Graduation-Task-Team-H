@@ -24,7 +24,6 @@
   font-size: 30px;
 }
 
-
 /* 各項目のスタイル */
 .info {
   display: flex;
@@ -60,8 +59,8 @@
   height: 20px; /* アルバム名の高さを指定 */
   text-align: left; /* アルバム名を左寄せに配置 */
   font-style: italic;
-  color: #777; /* 例: グレーのテキストカラー */  width: auto;
-
+  color: #777; /* 例: グレーのテキストカラー */
+  width: auto;
 }
 
 /*　ふくち　*/
@@ -87,7 +86,7 @@
   left: -100px;
   width: 220px;
   height: 300%;
-  content: '';
+  content: "";
   -webkit-transform: rotate(25deg);
   transform: rotate(25deg);
   background: #000;
@@ -104,29 +103,28 @@
   padding-left: 16px;
   color: #fff;
 }
- 
- .RankingTopSpan {
-   font-family: 'Roboto', sans-serif;
-   font-size: 80px;
-   line-height: 1;
-   position: absolute;
-   bottom: -1.6rem;
-   left: 0;
- }
 
- span.NamH2 {
+.RankingTopSpan {
+  font-family: "Roboto", sans-serif;
+  font-size: 80px;
+  line-height: 1;
+  position: absolute;
+  bottom: -1.6rem;
+  left: 0;
+}
+
+span.NamH2 {
   font-size: 35px;
-  padding: 7px 0 0 5px;
+  padding: 20px 0 0 5px;
   font-style: italic;
   -webkit-font-smoothing: antialiased;
- }
+}
 
- .MusName {
+.MusName {
   max-width: 350px;
- }
+}
 
-
- .scrollToTopButton {
+.scrollToTopButton {
   align-items: center;
   position: fixed;
   bottom: 20px;
@@ -138,7 +136,6 @@
   border-radius: 5px;
   cursor: pointer;
 }
-
 
 .scrollTopImg {
   width: 50px;
