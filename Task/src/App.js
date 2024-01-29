@@ -4,16 +4,13 @@ import { LikeProvider } from "../src/components/LikeContext.js";
 
 import Home from "./HomeScene/Home";
 import Search from "./SearchScene/Search";
-import Login from "./components/RegisterForm.js";
+// import Login from "./components/RegisterForm.js";
 import Command from "./Command/Command.js";
 import CategorySelect from "./IntroScene/CategorySelect.js";
 import IntroDon from "./IntroScene/IntroDon.js";
 import NakasoneRoom from "./Command/NakasoneRoom.js";
 import Panda from "./components/Panda.js";
-import MusicSearch from "./MusicSearch/MusicSearch.js";
 import Intro from "./IntroScene/Ranking.js";
-
-import SearchTest from "./Test/SearchTest.js";
 
 function App() {
   return (
@@ -33,9 +30,6 @@ function App() {
             <Route path="/NakasoneRoom" element={<NakasoneRoom />} />
             <Route path="/CategorySelect" element={<CategorySelect />} />
             <Route path="/IntroDon" element={<IntroDon />} />
-            <Route path="/MusicSearch" element={<MusicSearch />} />
-
-            <Route path="/sTest" element={<SearchTest />} />
           </Routes>
         </LikeProvider>
       </div>
