@@ -86,7 +86,7 @@ function Home() {
           </div>
           <div className="AllContent">
             <div className="SearchCon">
-              <img src={KuchikomiPic} alt="" className="KuchikomiPic" />
+              {/* <img src={KuchikomiPic} alt="" className="KuchikomiPic" /> */}
               <button
                 className="NextSearchBt"
                 onClick={() => (window.location.href = "/Search")}
@@ -95,7 +95,7 @@ function Home() {
               </button>
             </div>
             <div className="IntroCon">
-              <img src={SelectPic} alt="" className="SelectPic" />
+              {/* <img src={SelectPic} alt="" className="SelectPic" /> */}
               <button
                 className="IntroBt"
                 onClick={() => (window.location.href = "/ranking")}

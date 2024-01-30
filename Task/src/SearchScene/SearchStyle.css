@@ -346,6 +346,16 @@ button.likeButton.svg {
   height: auto;
 }
 
+.PDel {
+  display: flex;
+}
+
+.PDel button {
+  margin: 0;
+  background-color: white;
+  border: none;
+}
+
 .title {
   border-bottom: 1px solid #000;
   margin-top: 100px;

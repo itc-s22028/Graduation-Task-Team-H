@@ -41,13 +41,17 @@ const Search = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [artistDetail, setArtistDetail] = useState(null);
   const [isDetailVisible, setIsDetailVisible] = useState(false);
+  const [selectedArtistName, setSelectedArtistName] = useState("");
+  const [selectedArtistIndex, setSelectedArtistIndex] = useState(null);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
+    setSelectedArtistIndex(null);
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+    setSelectedArtistIndex(null);
   };
 
   const calculateElapsedTime = (timestamp) => {
@@ -224,7 +228,8 @@ const Search = () => {
       // オプションで、最初のアーティストを主な artistInfo として設定する
       if (artists.length > 0) {
         // 最初のアーティストの情報をセット
-        setArtistInfo(artists[0]);
+        const firstArtist = artists[0];
+        setArtistInfo(firstArtist);
 
         // 最初のアーティストのトップトラックを取得
         const topTracksResponse = await getTopTracks(
@@ -250,10 +255,15 @@ const Search = () => {
     }
   };
 
-  const handleArtistDetail = async (artist) => {
+  const handleArtistDetail = async (artist, index) => {
     try {
       // アーティストの詳細情報をセット
+      setSelectedArtistIndex(index);
       setArtistDetail(artist);
+      setArtistInfo(artist);
+
+      // 新しく選択されたアーティストの名前をセット
+      const selectedArtistName = artist.name;
 
       // アーティストのトップトラックを取得
       const accessToken = await getAccessToken();
@@ -267,6 +277,9 @@ const Search = () => {
         setTrackName(topTracksResponse.tracks[0].name);
         setPopularTracks(topTracksResponse.tracks);
       }
+
+      // 新しく選択されたアーティストの名前を state にセット
+      setSelectedArtistName(selectedArtistName);
     } catch (error) {
       console.error("アーティスト詳細情報の取得エラー:", error.message);
     }
@@ -425,7 +438,7 @@ const Search = () => {
     );
   };
 
-  const fetchReviews = async () => {
+  const fetchReviews = async (artistName) => {
     if (!artistInfo) {
       setReviews([]);
       return;
@@ -436,7 +449,7 @@ const Search = () => {
 
     const artistQuery = query(
       reviewsCollection,
-      where("artistName", "==", artistInfo.name)
+      where("artistName", "==", artistName)
     );
 
     try {
@@ -452,7 +465,7 @@ const Search = () => {
   };
 
   const postReview = async () => {
-    if (newReviewInput.trim() === "") {
+    if (newReviewInput.trim() === "" || !selectedArtistName) {
       return;
     }
 
@@ -475,20 +488,20 @@ const Search = () => {
         content: newReviewInput.replace(/\n/g, "<br>"),
         timestamp: timestamp,
         rating: 5,
-        artistName: artistInfo ? artistInfo.name : "",
+        artistName: selectedArtistName, // 正しいアーティスト名を使用する
       });
 
       setNewReviewInput("");
-      fetchReviews();
+      fetchReviews(selectedArtistName); // アーティストごとに取得する
     } catch (error) {
       console.error("レビューの追加エラー:", error.message);
     }
   };
 
   useEffect(() => {
-    fetchReviews();
+    fetchReviews(selectedArtistName); // アーティストごとに取得する
     fetchLikes(); // ここで fetchLikes を呼び出す
-  }, [artistInfo]);
+  }, [selectedArtistName]);
 
   const bodyStyle = artistInfo;
 
@@ -671,7 +684,7 @@ const Search = () => {
 
           <div className="TopCon">
             <div className="AllCon">
-              {searchResults.map((result) => (
+              {searchResults.map((result, index) => (
                 <div key={result.id} className="bodyCon">
                   <div className="LeftCon">
                     {result.images && result.images.length > 0 && (
@@ -684,7 +697,10 @@ const Search = () => {
                     <h3>{result.name}</h3>
                     <button
                       className="GoSearch"
-                      onClick={() => handleArtistDetail(result)}
+                      onClick={() => {
+                        setSelectedArtistIndex(index); // クリックされたアーティストのインデックスをセット
+                        handleArtistDetail(result, index);
+                      }}
                     >
                       詳細へ ▶
                     </button>
