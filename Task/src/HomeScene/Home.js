@@ -112,7 +112,7 @@ function Home() {
           {/* 3回クリックされたら表示される新しいコンテンツ */}
           <button
             className={`Command ${textAnimation}`}
-            onClick={() => (window.location.href = "/Command")}
+            onClick={() => (window.location.href = "/NakasoneRoom")}
           >
             ？？？
           </button>

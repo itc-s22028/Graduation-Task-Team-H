@@ -1,17 +1,14 @@
-/* CommandStyle.css */
-
-.command-container {
+CommandStyle.css .command-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-} 
-
-.commandBack {
-  background: url('../images/blackimg.jpg') no-repeat center center fixed;
-  background-size: cover;
 }
 
+.commandBack {
+  background: url("../images/blackimg.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
 
 .home-button,
 .kaitou-button {
