@@ -35,7 +35,7 @@ const Ranking = () => {
 
         // Spotify APIで日本のトップソングのプレイリストを取得
         const responsePlaylists = await axios.get(
-          "https://api.spotify.com/v1/browse/categories/toplists/playlists?country=JP",
+          "https://api.spotify.com/v1/browse/categories/toplists/playlists?country=US",
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,

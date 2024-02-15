@@ -43,6 +43,7 @@ const Search = () => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const [selectedArtistName, setSelectedArtistName] = useState("");
   const [selectedArtistIndex, setSelectedArtistIndex] = useState(null);
+  const [likedUsers, setLikedUsers] = useState([]); // いいねしたユーザー情報を保持するstate
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -92,6 +93,14 @@ const Search = () => {
       try {
         const querySnapshot = await getDocs(likesQuery);
         setTotalLikes(querySnapshot.size); // 総いいねの数を更新
+
+        // いいねしたユーザーの情報を取得
+        const likedUsersData = [];
+        querySnapshot.forEach((doc) => {
+          likedUsersData.push(doc.data());
+        });
+        setLikedUsers(likedUsersData); // いいねしたユーザー情報をstateに保存
+
         console.log("After fetchLikes");
       } catch (error) {
         console.error("Error in fetchLikes:", error.message);
@@ -572,6 +581,17 @@ const Search = () => {
                           onClick={handleLikeClick}
                         />
                         <p className="TotalLikes">: {`${totalLikes}`} Like</p>
+                      </div>
+                      <div className="LikedUsers">
+                        {likedUsers.map((user, index) => (
+                          <div key={index} className="User">
+                            <img
+                              src={user.profileImage}
+                              alt={user.displayName}
+                            />
+                            <p>{user.displayName}</p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                     <button className="SearchBack" onClick={handleBack}>

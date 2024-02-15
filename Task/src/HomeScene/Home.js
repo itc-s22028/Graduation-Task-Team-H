@@ -7,6 +7,7 @@ import BackgroundImage1 from "../images/HidaYagi.png"; // 画像のパスを正�
 import BackgroundImage2 from "../images/hikanoko.jpg";
 import KuchikomiPic from "../images/KuchikomiPic.png";
 import SelectPic from "../images/SelectPic.png";
+import { auth, provider } from "../firebase";
 
 function Home() {
   const [logoClickCount, setLogoClickCount] = useState(0);
@@ -66,18 +67,26 @@ function Home() {
     <div style={bodyStyle}>
       {logoClickCount < maxClickCount ? (
         <div style={contentStyle}>
-          <img
+          {/* <img
             src={HomeLogo}
             alt=""
             className="HomeLogo"
             onClick={handleLogoClick}
             style={{ cursor: "pointer" }}
+          /> */}
+          <img
+            src={auth.currentUser ? auth.currentUser.photoURL : HomeLogo}
+            alt=""
+            className="HomeLogo"
+            onClick={handleLogoClick}
+            style={{ cursor: "pointer" }}
           />
+
           <button
             className="goHome"
             onClick={() => (window.location.href = "/Panda")}
           >
-            ログインへ
+            ログアウトへ
           </button>
           <div className="Hometitle">
             <h3>
