@@ -20,6 +20,19 @@ import jaLocale from "date-fns/locale/ja";
 import LikeButton from "../components/LikeButton"; // ファイルパスは実際のファイルの場所に合わせて修正してください
 import { deleteDoc } from "firebase/firestore";
 import { useLikeContext } from "../components/LikeContext";
+import Modal from "react-modal";
+import ReactDOM from "react-dom";
+import App from "../App";
+
+// Appのルートエレメントを指定
+Modal.setAppElement("#root");
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
 
 const Search = () => {
   const [artistName, setArtistName] = useState("");
@@ -43,6 +56,32 @@ const Search = () => {
   const [isDetailVisible, setIsDetailVisible] = useState(false);
   const [artistInfos, setArtistInfos] = useState([]);
   const [user, setUser] = useState(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const showDeleteConfirmation = () => {
+    setModalOpen(true);
+  };
+
+  const handleConfirm = async (reviewId) => {
+    if (user && user.uid) {
+      try {
+        // レビューを削除する処理
+        const db = getFirestore();
+        const reviewsCollection = collection(db, "reviews");
+        await deleteDoc(doc(reviewsCollection, reviewId));
+
+        // 削除後に口コミを再取得するなどの処理を追加
+        fetchReviews();
+      } catch (error) {
+        console.error("削除エラー:", error.message);
+      }
+    }
+    setModalOpen(false);
+  };
+  const handleCancel = () => {
+    // キャンセル処理をここに追加
+    setModalOpen(false);
+  };
 
   useEffect(() => {
     const auth = getAuth();
@@ -155,6 +194,8 @@ const Search = () => {
 
   const handleLikeClick = async () => {
     try {
+      console.log("いいねボタンがクリックされました");
+
       const auth = getAuth();
       const user = auth.currentUser;
 
@@ -194,6 +235,11 @@ const Search = () => {
           }
         }
       }
+      console.log(
+        "isArtistLiked:",
+        isArtistLiked(artistInfo ? artistInfo.name : "")
+      );
+      console.log("Total Likes:", totalLikes);
     } catch (error) {
       console.error("いいねの処理エラー:", error.message);
     }
@@ -509,40 +555,45 @@ const Search = () => {
 
   // 口コミ削除関数
   const deleteReview = async (reviewId) => {
-    const confirmation = window.confirm("コメントを削除しますか？");
-
-    if (confirmation) {
-      try {
-        const db = getFirestore();
-        const reviewDocRef = doc(db, "reviews", reviewId);
-        await deleteDoc(reviewDocRef);
-        fetchReviews(); // コメントが削除された後に再読み込み
-      } catch (error) {
-        console.error("コメントの削除エラー:", error.message);
+    try {
+      // ユーザーがログインしているか確認
+      if (!user) {
+        console.error("ユーザーがログインしていません");
+        return;
       }
+
+      // Firebaseから口コミを削除
+      await deleteDoc(doc(getFirestore(), "reviews", reviewId));
+
+      // 口コミリストを更新
+      setReviews((prevReviews) =>
+        prevReviews.filter((review) => review.id !== reviewId)
+      );
+    } catch (error) {
+      console.error("口コミの削除エラー", error);
     }
   };
 
-  const handleDelete = async (reviewId) => {
-    const confirmed = window.confirm("削除しますか？");
+  // const handleDelete = async (reviewId) => {
+  //   const confirmed = window.confirm("削除しますか？");
 
-    if (confirmed) {
-      // OKがクリックされた場合の削除処理
-      try {
-        const db = getFirestore();
-        const reviewsCollection = collection(db, "reviews");
-        await deleteDoc(doc(reviewsCollection, reviewId));
+  //   if (confirmed) {
+  //     // OKがクリックされた場合の削除処理
+  //     try {
+  //       const db = getFirestore();
+  //       const reviewsCollection = collection(db, "reviews");
+  //       await deleteDoc(doc(reviewsCollection, reviewId));
 
-        // 削除後に口コミを再取得するなどの処理を追加
-        fetchReviews();
-      } catch (error) {
-        console.error("削除エラー:", error.message);
-      }
-    } else {
-      // キャンセルがクリックされた場合の処理（オプション）
-      // 何も行わないか、必要に応じてメッセージを表示するなど
-    }
-  };
+  //       // 削除後に口コミを再取得するなどの処理を追加
+  //       fetchReviews();
+  //     } catch (error) {
+  //       console.error("削除エラー:", error.message);
+  //     }
+  //   } else {
+  //     // キャンセルがクリックされた場合の処理（オプション）
+  //     // 何も行わないか、必要に応じてメッセージを表示するなど
+  //   }
+  // };
 
   return (
     <div style={bodyStyle}>
@@ -663,11 +714,30 @@ const Search = () => {
                         </div>
                         <div className="PDel">
                           <p className="minmiruP">{review.content}</p>
-                          {user && review.userID === user.uid && (
-                            <button onClick={() => deleteReview(review.id)}>
-                              ︙
-                            </button>
-                          )}
+                          <div>
+                            {user && review.userID === user.uid && (
+                              <button onClick={showDeleteConfirmation}>
+                                ︙
+                              </button>
+                            )}
+
+                            <Modal
+                              isOpen={isModalOpen}
+                              onRequestClose={() => setModalOpen(false)}
+                              contentLabel="確認ダイアログ"
+                              style={{
+                                content: {
+                                  width: "300px",
+                                  height: "200px",
+                                  padding: "50px",
+                                },
+                              }}
+                            >
+                              <p>本当に削除しますか？</p>
+                              <button onClick={handleConfirm}>はい</button>
+                              <button onClick={handleCancel}>キャンセル</button>
+                            </Modal>
+                          </div>
                         </div>
                       </div>
                     ))}

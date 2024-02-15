@@ -53,7 +53,7 @@
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: 100;
+  /* z-index: 5; */
 }
 
 .kuchikomi {
@@ -348,6 +348,7 @@ button.likeButton.svg {
 
 .PDel {
   display: flex;
+  position: relative;
 }
 
 .PDel button {
@@ -540,6 +541,7 @@ div.Names {
     margin: 0;
     bottom: 0;
     padding: 20px 0;
+    z-index: 100;
   }
 
   .Kuchikomi {
