@@ -175,6 +175,7 @@ const Search = () => {
             userId: user.uid,
             artistName: artistName,
             liked: true,
+            userName: user ? user.displayName || "Anonymous" : "Anonymous",
           });
           addLikedArtist(artistName);
           setTotalLikes((prevLikes) => prevLikes + 1); // 総いいねの数を更新
