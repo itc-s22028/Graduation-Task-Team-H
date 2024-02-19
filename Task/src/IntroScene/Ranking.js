@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import scrollTop from "../images/scrollTop.png";
 import axios from "axios";
 import "./Ranking.css";
+import NAKA from "../images/NAKASONE2.png";
 
 const Ranking = () => {
   const [topTracks, setTopTracks] = useState([]);
@@ -35,7 +36,7 @@ const Ranking = () => {
 
         // Spotify APIで日本のトップソングのプレイリストを取得
         const responsePlaylists = await axios.get(
-          "https://api.spotify.com/v1/browse/categories/toplists/playlists?country=JP",
+          "https://api.spotify.com/v1/browse/categories/toplists/playlists?country=US",
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -148,6 +149,7 @@ const Ranking = () => {
           </button>
         )}
       </div>
+      <img className="NAKA" src={NAKA} />
     </>
   );
 };

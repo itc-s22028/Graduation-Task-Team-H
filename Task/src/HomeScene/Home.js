@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from "react";
 import "./HomeStyle.css";
 import HomeLogo from "../images/HomeLogo.png";
-import BackgroundImage1 from "../images/HidaYagi.png"; // 画像のパスを正しく指定
+import BackgroundImage1 from "../images/NAKASONE2.png"; // 画像のパスを正しく指定
 import BackgroundImage2 from "../images/hikanoko.jpg";
 import KuchikomiPic from "../images/KuchikomiPic.png";
 import SelectPic from "../images/SelectPic.png";
+import NAKA from "../images/NAKASONE2.png";
+import { auth, provider } from "../firebase";
 
 function Home() {
   const [logoClickCount, setLogoClickCount] = useState(0);
@@ -35,9 +37,9 @@ function Home() {
   };
 
   const bodyStyle = {
-    backgroundImage: `url(${getBackgroundImage()})`,
+    // backgroundImage: `url(${getBackgroundImage()})`,
     backgroundPosition: "center",
-    backgroundRepeat: "repeat",
+    backgroundRepeat: "no-repeat",
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     backgroundBlendMode: "lighten",
     height: "100vh",
@@ -45,7 +47,7 @@ function Home() {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundSize: "100px",
+    backgroundSize: "300px",
     overflow: "hidden",
     animation: "moveBackground 10s linear infinite",
   };
@@ -66,18 +68,36 @@ function Home() {
     <div style={bodyStyle}>
       {logoClickCount < maxClickCount ? (
         <div style={contentStyle}>
-          <img
+          {/* <img
             src={HomeLogo}
             alt=""
             className="HomeLogo"
             onClick={handleLogoClick}
             style={{ cursor: "pointer" }}
+          /> */}
+          <div className="NAKA">
+            <img
+              src={NAKA}
+              style={{
+                opacity: 0.9,
+                marginBottom: "60px",
+              }}
+            />
+          </div>
+
+          <img
+            src={auth.currentUser ? auth.currentUser.photoURL : HomeLogo}
+            alt=""
+            className="HomeLogo"
+            onClick={handleLogoClick}
+            style={{ cursor: "pointer" }}
           />
+
           <button
             className="goHome"
             onClick={() => (window.location.href = "/Panda")}
           >
-            ログインへ
+            ログアウトへ
           </button>
           <div className="Hometitle">
             <h3>
@@ -112,7 +132,7 @@ function Home() {
           {/* 3回クリックされたら表示される新しいコンテンツ */}
           <button
             className={`Command ${textAnimation}`}
-            onClick={() => (window.location.href = "/Command")}
+            onClick={() => (window.location.href = "/NakasoneRoom")}
           >
             ？？？
           </button>

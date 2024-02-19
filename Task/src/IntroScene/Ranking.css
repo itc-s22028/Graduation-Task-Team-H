@@ -2,6 +2,13 @@
   display: flex;
 }
 
+.NAKA {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: 250px;
+}
+
 .RanBackHome {
   overflow: hidden;
   background: linear-gradient(90deg, #000 50%, #27acd9 50%);

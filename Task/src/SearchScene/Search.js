@@ -20,19 +20,7 @@ import jaLocale from "date-fns/locale/ja";
 import LikeButton from "../components/LikeButton"; // ファイルパスは実際のファイルの場所に合わせて修正してください
 import { deleteDoc } from "firebase/firestore";
 import { useLikeContext } from "../components/LikeContext";
-import Modal from "react-modal";
-import ReactDOM from "react-dom";
-import App from "../App";
-
-// Appのルートエレメントを指定
-Modal.setAppElement("#root");
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+import NAKA from "../images/NAKASONE2.png";
 
 const Search = () => {
   const [artistName, setArtistName] = useState("");
@@ -54,51 +42,18 @@ const Search = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [artistDetail, setArtistDetail] = useState(null);
   const [isDetailVisible, setIsDetailVisible] = useState(false);
-  const [artistInfos, setArtistInfos] = useState([]);
-  const [user, setUser] = useState(null);
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  const showDeleteConfirmation = () => {
-    setModalOpen(true);
-  };
-
-  const handleConfirm = async (reviewId) => {
-    if (user && user.uid) {
-      try {
-        // レビューを削除する処理
-        const db = getFirestore();
-        const reviewsCollection = collection(db, "reviews");
-        await deleteDoc(doc(reviewsCollection, reviewId));
-
-        // 削除後に口コミを再取得するなどの処理を追加
-        fetchReviews();
-      } catch (error) {
-        console.error("削除エラー:", error.message);
-      }
-    }
-    setModalOpen(false);
-  };
-  const handleCancel = () => {
-    // キャンセル処理をここに追加
-    setModalOpen(false);
-  };
-
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
-      setUser(authUser);
-    });
-  }, []);
-
-  // artistIndex ステートを追加
-  const [artistIndex, setArtistIndex] = useState(null);
+  const [selectedArtistName, setSelectedArtistName] = useState("");
+  const [selectedArtistIndex, setSelectedArtistIndex] = useState(null);
+  const [likedUsers, setLikedUsers] = useState([]); // いいねしたユーザー情報を保持するstate
 
   const handleMouseEnter = () => {
     setIsHovered(true);
+    setSelectedArtistIndex(null);
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+    setSelectedArtistIndex(null);
   };
 
   const calculateElapsedTime = (timestamp) => {
@@ -139,6 +94,14 @@ const Search = () => {
       try {
         const querySnapshot = await getDocs(likesQuery);
         setTotalLikes(querySnapshot.size); // 総いいねの数を更新
+
+        // いいねしたユーザーの情報を取得
+        const likedUsersData = [];
+        querySnapshot.forEach((doc) => {
+          likedUsersData.push(doc.data());
+        });
+        setLikedUsers(likedUsersData); // いいねしたユーザー情報をstateに保存
+
         console.log("After fetchLikes");
       } catch (error) {
         console.error("Error in fetchLikes:", error.message);
@@ -194,8 +157,6 @@ const Search = () => {
 
   const handleLikeClick = async () => {
     try {
-      console.log("いいねボタンがクリックされました");
-
       const auth = getAuth();
       const user = auth.currentUser;
 
@@ -235,11 +196,6 @@ const Search = () => {
           }
         }
       }
-      console.log(
-        "isArtistLiked:",
-        isArtistLiked(artistInfo ? artistInfo.name : "")
-      );
-      console.log("Total Likes:", totalLikes);
     } catch (error) {
       console.error("いいねの処理エラー:", error.message);
     }
@@ -267,6 +223,10 @@ const Search = () => {
       // BGMを停止
       stopBGM();
 
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
       // Spotifyアクセストークンを取得
       const accessToken = await getAccessToken();
 
@@ -282,7 +242,8 @@ const Search = () => {
       // オプションで、最初のアーティストを主な artistInfo として設定する
       if (artists.length > 0) {
         // 最初のアーティストの情報をセット
-        setArtistInfo(artists[0]);
+        const firstArtist = artists[0];
+        setArtistInfo(firstArtist);
 
         // 最初のアーティストのトップトラックを取得
         const topTracksResponse = await getTopTracks(
@@ -308,10 +269,15 @@ const Search = () => {
     }
   };
 
-  const handleArtistDetail = async (artist) => {
+  const handleArtistDetail = async (artist, index) => {
     try {
       // アーティストの詳細情報をセット
+      setSelectedArtistIndex(index);
       setArtistDetail(artist);
+      setArtistInfo(artist);
+
+      // 新しく選択されたアーティストの名前をセット
+      const selectedArtistName = artist.name;
 
       // アーティストのトップトラックを取得
       const accessToken = await getAccessToken();
@@ -326,8 +292,8 @@ const Search = () => {
         setPopularTracks(topTracksResponse.tracks);
       }
 
-      // コメントを即座に読み込む
-      await fetchReviews();
+      // 新しく選択されたアーティストの名前を state にセット
+      setSelectedArtistName(selectedArtistName);
     } catch (error) {
       console.error("アーティスト詳細情報の取得エラー:", error.message);
     }
@@ -486,7 +452,7 @@ const Search = () => {
     );
   };
 
-  const fetchReviews = async () => {
+  const fetchReviews = async (artistName) => {
     if (!artistInfo) {
       setReviews([]);
       return;
@@ -497,7 +463,7 @@ const Search = () => {
 
     const artistQuery = query(
       reviewsCollection,
-      where("artistName", "==", artistInfo.name)
+      where("artistName", "==", artistName)
     );
 
     try {
@@ -513,7 +479,7 @@ const Search = () => {
   };
 
   const postReview = async () => {
-    if (newReviewInput.trim() === "") {
+    if (newReviewInput.trim() === "" || !selectedArtistName) {
       return;
     }
 
@@ -536,70 +502,41 @@ const Search = () => {
         content: newReviewInput.replace(/\n/g, "<br>"),
         timestamp: timestamp,
         rating: 5,
-        artistName: artistInfo ? artistInfo.name : "",
+        artistName: selectedArtistName, // 正しいアーティスト名を使用する
       });
 
       setNewReviewInput("");
-      fetchReviews();
+      fetchReviews(selectedArtistName); // アーティストごとに取得する
     } catch (error) {
       console.error("レビューの追加エラー:", error.message);
     }
   };
 
   useEffect(() => {
-    fetchReviews();
+    fetchReviews(selectedArtistName); // アーティストごとに取得する
     fetchLikes(); // ここで fetchLikes を呼び出す
-  }, [artistInfo]);
+  }, [selectedArtistName]);
 
   const bodyStyle = artistInfo;
 
-  // 口コミ削除関数
-  const deleteReview = async (reviewId) => {
-    try {
-      // ユーザーがログインしているか確認
-      if (!user) {
-        console.error("ユーザーがログインしていません");
-        return;
-      }
-
-      // Firebaseから口コミを削除
-      await deleteDoc(doc(getFirestore(), "reviews", reviewId));
-
-      // 口コミリストを更新
-      setReviews((prevReviews) =>
-        prevReviews.filter((review) => review.id !== reviewId)
-      );
-    } catch (error) {
-      console.error("口コミの削除エラー", error);
-    }
-  };
-
-  // const handleDelete = async (reviewId) => {
-  //   const confirmed = window.confirm("削除しますか？");
-
-  //   if (confirmed) {
-  //     // OKがクリックされた場合の削除処理
-  //     try {
-  //       const db = getFirestore();
-  //       const reviewsCollection = collection(db, "reviews");
-  //       await deleteDoc(doc(reviewsCollection, reviewId));
-
-  //       // 削除後に口コミを再取得するなどの処理を追加
-  //       fetchReviews();
-  //     } catch (error) {
-  //       console.error("削除エラー:", error.message);
-  //     }
-  //   } else {
-  //     // キャンセルがクリックされた場合の処理（オプション）
-  //     // 何も行わないか、必要に応じてメッセージを表示するなど
-  //   }
-  // };
-
   return (
     <div style={bodyStyle}>
+      <img
+        src={NAKA}
+        style={{
+          opacity: 0.2,
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: "-9999",
+        }}
+      />
+
       {isDetailVisible ? (
         // 詳細情報を表示
         <div className="ArtistDetail">
+          {/* 他の詳細情報（必要に応じて詳細情報を表示する要素を追加） */}
           <div className="bodyCon">
             <div className="smartphone">
               <div className="TopTracksContainer">
@@ -662,6 +599,17 @@ const Search = () => {
                         />
                         <p className="TotalLikes">: {`${totalLikes}`} Like</p>
                       </div>
+                      <div className="LikedUsers">
+                        {likedUsers.map((user, index) => (
+                          <div key={index} className="User">
+                            <img
+                              src={user.profileImage}
+                              alt={user.displayName}
+                            />
+                            <p>{user.displayName}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                     <button className="SearchBack" onClick={handleBack}>
                       ◀ 戻る
@@ -712,33 +660,7 @@ const Search = () => {
                             )}
                           </p>
                         </div>
-                        <div className="PDel">
-                          <p className="minmiruP">{review.content}</p>
-                          <div>
-                            {user && review.userID === user.uid && (
-                              <button onClick={showDeleteConfirmation}>
-                                ︙
-                              </button>
-                            )}
-
-                            <Modal
-                              isOpen={isModalOpen}
-                              onRequestClose={() => setModalOpen(false)}
-                              contentLabel="確認ダイアログ"
-                              style={{
-                                content: {
-                                  width: "300px",
-                                  height: "200px",
-                                  padding: "50px",
-                                },
-                              }}
-                            >
-                              <p>本当に削除しますか？</p>
-                              <button onClick={handleConfirm}>はい</button>
-                              <button onClick={handleCancel}>キャンセル</button>
-                            </Modal>
-                          </div>
-                        </div>
+                        <p className="minmiruP">{review.content}</p>
                       </div>
                     ))}
                 </div>
@@ -799,7 +721,7 @@ const Search = () => {
 
           <div className="TopCon">
             <div className="AllCon">
-              {searchResults.map((result) => (
+              {searchResults.map((result, index) => (
                 <div key={result.id} className="bodyCon">
                   <div className="LeftCon">
                     {result.images && result.images.length > 0 && (
@@ -812,7 +734,10 @@ const Search = () => {
                     <h3>{result.name}</h3>
                     <button
                       className="GoSearch"
-                      onClick={() => handleArtistDetail(result)}
+                      onClick={() => {
+                        setSelectedArtistIndex(index); // クリックされたアーティストのインデックスをセット
+                        handleArtistDetail(result, index);
+                      }}
                     >
                       詳細へ ▶
                     </button>
