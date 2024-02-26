@@ -85,13 +85,30 @@ function Home() {
             />
           </div>
 
-          <img
+          {/* <img
             src={auth.currentUser ? auth.currentUser.photoURL : HomeLogo}
             alt=""
             className="HomeLogo"
             onClick={handleLogoClick}
             style={{ cursor: "pointer" }}
-          />
+          /> */}
+
+          <button
+            onClick={() => (window.location.href = "/NakasoneRoom")}
+            style={{
+              border: "none",
+              background: "none",
+              cursor: "pointer",
+              padding: 0,
+            }}
+          >
+            <img
+              src={auth.currentUser ? auth.currentUser.photoURL : HomeLogo}
+              alt=""
+              className="HomeLogo"
+              style={{ cursor: "pointer" }}
+            />
+          </button>
 
           <button
             className="goHome"
@@ -127,17 +144,17 @@ function Home() {
         </div>
       ) : null}
 
-      {logoClickCount >= maxClickCount && (
-        <div style={replacementContentStyle}>
-          {/* 3回クリックされたら表示される新しいコンテンツ */}
-          <button
-            className={`Command ${textAnimation}`}
-            onClick={() => (window.location.href = "/NakasoneRoom")}
-          >
-            ？？？
-          </button>
-        </div>
-      )}
+      {/* {logoClickCount >= maxClickCount && ( */}
+      {/* <div style={replacementContentStyle}> */}
+      {/* 3回クリックされたら表示される新しいコンテンツ  */}
+      {/* <button */}
+      {/* className={`Command ${textAnimation}`} */}
+      {/* onClick={() => (window.location.href = "/NakasoneRoom")} */}
+      {/* > */}
+      {/* ？？？ */}
+      {/* </button> */}
+      {/* </div> */}
+      {/* )} */}
     </div>
   );
 }
